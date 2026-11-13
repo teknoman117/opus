@@ -151,4 +151,8 @@ static OPUS_INLINE opus_int32 silk_CLZ32(opus_int32 in32)
 #include "xtensa/macros_lx7.h"
 #endif
 
+#ifdef OPUS_X86_386_ASM
+#include "x86/macros_386.h"
+#endif
+
 #endif /* SILK_MACROS_H */

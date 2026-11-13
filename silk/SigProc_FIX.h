@@ -638,4 +638,8 @@ static OPUS_INLINE opus_int64 silk_max_64(opus_int64 a, opus_int64 b)
 #endif
 
 
+#ifdef OPUS_X86_386_ASM
+#include "x86/SigProc_FIX_386.h"
+#endif
+
 #endif /* SILK_SIGPROC_FIX_H */
