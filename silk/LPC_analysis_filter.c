@@ -30,6 +30,9 @@ POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #include "SigProc_FIX.h"
+#if defined(OPUS_X86_386_ASM) && !defined(OPUS_NO_386_FIR)
+#include "x86/LPC_analysis_filter_386.h"
+#endif
 #include "celt_lpc.h"
 
 /*******************************************/
@@ -82,6 +85,14 @@ void silk_LPC_analysis_filter(
     for( ix = d; ix < len; ix++ ) {
         in_ptr = &in[ ix - 1 ];
 
+#if defined(OPUS_X86_386_ASM) && !defined(OPUS_NO_386_FIR)
+        if( d == 16 ) {
+            out32_Q12 = silk_fir16_386( in_ptr, B );
+        } else if( d == 10 ) {
+            out32_Q12 = silk_fir10_386( in_ptr, B );
+        } else
+#endif
+        {
         out32_Q12 = silk_SMULBB( in_ptr[  0 ], B[ 0 ] );
         /* Allowing wrap around so that two wraps can cancel each other. The rare
            cases where the result wraps around can only be triggered by invalid streams*/
@@ -93,6 +104,7 @@ void silk_LPC_analysis_filter(
         for( j = 6; j < d; j += 2 ) {
             out32_Q12 = silk_SMLABB_ovflw( out32_Q12, in_ptr[ -j     ], B[ j     ] );
             out32_Q12 = silk_SMLABB_ovflw( out32_Q12, in_ptr[ -j - 1 ], B[ j + 1 ] );
+        }
         }
 
         /* Subtract prediction */
