@@ -35,6 +35,16 @@
 #include "entdec.h"
 #include "mfrngcod.h"
 
+#if defined(OPUS_X86_386_ASM) && !defined(OPUS_NO_386_ENTDEC) && defined(__WATCOMC__)
+/* a * b with b as IMUL's r/m operand, the 386's optimizing multiplier. */
+opus_uint32 ec_imul_386(opus_uint32 a, opus_uint32 b);
+#pragma aux ec_imul_386 = \
+    "imul eax, edx" \
+    parm [eax] [edx] value [eax] modify exact [eax];
+#undef IMUL32
+#define IMUL32(a, b) ec_imul_386((a), (b))
+#endif
+
 /*A range decoder.
   This is an entropy decoder based upon \cite{Mar79}, which is itself a
    rediscovery of the FIFO arithmetic code introduced by \cite{Pas76}.
