@@ -1,0 +1,12 @@
+  [    2 s, waiting for '==RUN 0=='] Press F1 to continue, DEL to enter SETUP | 10/30/95-ALI-1487/89-2A4KDA12C-5E
+  [    6 s, waiting for '==RUN 0==']   64-31-63 instead of    8-39-63 | C: HD1, Pri[ 1], CHS=    0-1-1, start=     0 MB, size=    63 MB
+  [    7 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   14 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+dx4-100  GHOSTS.OPU        636.8 M instructions (  63.6 M per s of audio),  229.8% of real time
+  [    7 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   13 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+dx4-100  BADAPPLE.OPU      542.7 M instructions (  54.2 M per s of audio),  198.6% of real time
+  [    6 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   11 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+dx4-100  FEARHYB.OPU       600.3 M instructions (  60.0 M per s of audio),  240.8% of real time
+dx4-100  FEARSILK.OPU      159.9 M instructions (  16.0 M per s of audio),   63.6% of real time

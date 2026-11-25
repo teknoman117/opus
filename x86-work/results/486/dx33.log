@@ -1,0 +1,28 @@
+  [    2 s, waiting for '==RUN 0=='] Press F1 to continue, DEL to enter SETUP | 10/30/95-ALI-1487/89-2A4KDA12C-5E
+  [    4 s, waiting for '==RUN 0==']   64-31-63 instead of    8-39-63 | C: HD1, Pri[ 1], CHS=    0-1-1, start=     0 MB, size=    63 MB
+  [    3 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [    6 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [    9 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   13 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   16 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   18 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   21 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+dx33     GHOSTS.OPU        636.9 M instructions (  63.6 M per s of audio),  689.5% of real time
+  [    3 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [    6 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [    9 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   12 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   15 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   18 s, waiting for ' decoded ']   SILK 0, hybrid 0, CELT 3001; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+dx33     BADAPPLE.OPU      542.8 M instructions (  54.2 M per s of audio),  596.8% of real time
+  [    3 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [    5 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [    8 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   10 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   13 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   16 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+  [   18 s, waiting for ' decoded ']   SILK 0, hybrid 3001, CELT 0; NB 0 MB 0 WB 0 SWB 0 FB 3001 |   decoding (opus_decode at 001037F8)
+dx33     FEARHYB.OPU       600.5 M instructions (  60.0 M per s of audio),  722.4% of real time
+  [    3 s, waiting for ' decoded ']   SILK 3001, hybrid 0, CELT 0; NB 0 MB 0 WB 3001 SWB 0 FB 0 |   decoding (opus_decode at 001037F8)
+  [    5 s, waiting for ' decoded ']   SILK 3001, hybrid 0, CELT 0; NB 0 MB 0 WB 3001 SWB 0 FB 0 |   decoding (opus_decode at 001037F8)
+dx33     FEARSILK.OPU      159.9 M instructions (  16.0 M per s of audio),  191.4% of real time
