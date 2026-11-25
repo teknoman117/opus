@@ -1,0 +1,42 @@
+[
+ {
+  "audio_s": 10.01,
+  "decode_s": 33.87,
+  "pct": 338.3,
+  "crc": "FF48EE5F",
+  "mean_ms": 67.61,
+  "slowest_ms": 110.8,
+  "worst_pct": 554.0,
+  "read_s": 0.19,
+  "read_pct": 1.9,
+  "dos_kb_left": 39,
+  "dpmi_kb_left": 0,
+  "scratch": 4048,
+  "variant": "OALL",
+  "stream": "SMB12.OPU",
+  "rate": 12000,
+  "seconds": 10,
+  "expect_crc": "FF48EE5F",
+  "crc_ok": true
+ },
+ {
+  "audio_s": 10.01,
+  "decode_s": 33.87,
+  "pct": 338.3,
+  "crc": "FF48EE5F",
+  "mean_ms": 67.61,
+  "slowest_ms": 110.8,
+  "worst_pct": 554.0,
+  "read_s": 0.19,
+  "read_pct": 1.9,
+  "dos_kb_left": 39,
+  "dpmi_kb_left": 0,
+  "scratch": 4048,
+  "variant": "OALL",
+  "stream": "SMB12.OPU",
+  "rate": 12000,
+  "seconds": 10,
+  "expect_crc": "FF48EE5F",
+  "crc_ok": true
+ }
+]

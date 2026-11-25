@@ -1,0 +1,472 @@
+== board (20261114-161824)
+cd C:\OPUS
+[C:\OPUS]
+ver
+
+General Software Embedded DOS-ROM 4.04
+
+[C:\OPUS]
+mem
+Memory Type        Total  =   Used  +   Free
+----------------  -------   -------   -------
+Operating System      21K   4194276K       50K
+Conventional         324K       63K      261K
+Upper                  0K        0K        0K
+Extended (XMS)         0K        0K        0K
+INT 15h Extended       0K        0K        0K
+----------------  -------   -------   -------
+Total memory         345K   4194339K      311K
+
+Total Under 1MB      345K   4194339K      311K
+
+Largest executable program size    237K
+Largest free upper memory block      0K
+
+[C:\OPUS]
+chkdsk c:
+Checking volume in drive C:
+The file system type is FAT-16.
+
+688 lost clusters found in 2 chains.
+
+     1409024 bytes would be freed
+
+    45103104 bytes volume capacity
+       45056 bytes in 22 directories
+     3776512 bytes in 148 user files
+    39872512 bytes available on disk
+
+        2048 bytes in each allocation unit
+       22023 total allocation units on disk
+       19469 available allocation units on disk
+
+      353280 bytes total low memory
+      271360 bytes free
+[C:\OPUS]
+dir
+
+ Volume in drive C is FREEDOS
+ Directory of C:\OPUS
+
+.              <DIR>       1-Jan-80 12:03a       
+..             <DIR>       1-Jan-80 12:03a       
+SMB12    OPU        30243  1-Jan-80 12:03a       
+         1 file(s)        30243 byte(s)
+         2 dir(s)      39872512 byte(s) free
+
+[C:\OPUS]
+[sz SMB12.OPU SWB16.OPU at 38400: exit 0]
+a:\util\dsz port 1 speed 38400 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 38400 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 38400 d ha off rz -y '
+2 Files total            70376 bytes Estimated  0.6 Min
+SMB12.OPU        30243 bytes Estimated  0.2 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 1024 attempt 1: Bad CRC  Length=325
+   1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32  
+Closing SMB12.OPU: 30243 chars  0.14 min 3379 ch/sec
+SWB16.OPU        40133 bytes Estimated  0.2 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 9216 attempt 1: Bad CRC  Length=302
+   9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32  
+Closing SWB16.OPU: 40133 chars  0.18 min 3580 ch/sec
+Ending ZMODEM session  
+
+Did you forget to register this copy?
+
+DSZ FINISHED! exit code = 0 [C:\OPUS]
+== OALL
+[sz OALL.EXE at 38400: exit 0]
+a:\util\dsz port 1 speed 38400 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 38400 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 38400 d ha off rz -y '
+total            130468 bytes Estimated  0.8 Min
+OALL.EXE         130468 bytes Estimated  0.7 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 7168 attempt 1: Bad CRC  Length=290
+   7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32    40960 ZMODEM CRC-32    41984 ZMODEM CRC-32    43008 ZMODEM CRC-32    44032 ZMODEM CRC-32    45056 ZMODEM CRC-32    46080 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 46080 attempt 1: Bad CRC  Length=249
+  46080 ZMODEM CRC-32    47104 ZMODEM CRC-32    48128 ZMODEM CRC-32    49152 ZMODEM CRC-32    50176 ZMODEM CRC-32    51200 ZMODEM CRC-32    52224 ZMODEM CRC-32    53248 ZMODEM CRC-32    54272 ZMODEM CRC-32    55296 ZMODEM CRC-32    56320 ZMODEM CRC-32    57344 ZMODEM CRC-32    58368 ZMODEM CRC-32    59392 ZMODEM CRC-32    60416 ZMODEM CRC-32    61440 ZMODEM CRC-32    62464 ZMODEM CRC-32    63488 ZMODEM CRC-32    64512 ZMODEM CRC-32    65536 ZMODEM CRC-32    66560 ZMODEM CRC-32    67584 ZMODEM CRC-32    68608 ZMODEM CRC-32    69632 ZMODEM CRC-32    70656 ZMODEM CRC-32    71680 ZMODEM CRC-32    72704 ZMODEM CRC-32    73728 ZMODEM CRC-32    74752 ZMODEM CRC-32    75776 ZMODEM CRC-32    76800 ZMODEM CRC-32    77824 ZMODEM CRC-32    78848 ZMODEM CRC-32    79872 ZMODEM CRC-32    80896 ZMODEM CRC-32    81920 ZMODEM CRC-32    82944 ZMODEM CRC-32    83968 ZMODEM CRC-32    84992 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 84992 attempt 1: Bad CRC  Length=271
+  84992 ZMODEM CRC-32    86016 ZMODEM CRC-32    87040 ZMODEM CRC-32    88064 ZMODEM CRC-32    89088 ZMODEM CRC-32    90112 ZMODEM CRC-32    91136 ZMODEM CRC-32    92160 ZMODEM CRC-32    93184 ZMODEM CRC-32    94208 ZMODEM CRC-32    95232 ZMODEM CRC-32    96256 ZMODEM CRC-32    97280 ZMODEM CRC-32    98304 ZMODEM CRC-32    99328 ZMODEM CRC-32   100352 ZMODEM CRC-32   101376 ZMODEM CRC-32   102400 ZMODEM CRC-32   103424 ZMODEM CRC-32   104448 ZMODEM CRC-32   105472 ZMODEM CRC-32   106496 ZMODEM CRC-32   107520 ZMODEM CRC-32   108544 ZMODEM CRC-32   109568 ZMODEM CRC-32   110592 ZMODEM CRC-32   111616 ZMODEM CRC-32   112640 ZMODEM CRC-32   113664 ZMODEM CRC-32   114688 ZMODEM CRC-32   115712 ZMODEM CRC-32   116736 ZMODEM CRC-32   117760 ZMODEM CRC-32   118784 ZMODEM CRC-32   119808 ZMODEM CRC-32   120832 ZMODEM CRC-32   121856 ZMODEM CRC-32   122880 ZMODEM CRC-32   123904 ZMODEM CRC-32   124928 ZMODEM CRC-32   125952 ZMODEM CRC-32   126976 ZMODEM CRC-32   128000 ZMODEM CRC-32   129024 ZMODEM CRC-32   130048 ZMODEM CRC-32  
+Closing OALL.EXE: 130468 chars  0.59 min 3677 ch/sec
+Ending ZMODEM session  
+
+Did you forget to register this copy?
+
+DSZ FINISHED! exit code = 0 [C:\OPUS]
+OALL SMB12.OPU 12000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SMB12.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 12000 Hz in 33.87 s: 338.3% of real time, CRC-32 FF48EE5F
+  per packet: mean 67.61 ms, slowest 110.80 ms (packet 392), worst 554.0% of its duration (110.80 ms)
+  reading the file: 0.16 s, 1.6% of real time
+  scratch: 4048 of 32768 bytes used
+[C:\OPUS]
+OALL SWB16.OPU 16000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SWB16.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 16000 Hz in 52.64 s: 525.7% of real time, CRC-32 324B00D7
+  per packet: mean 105.07 ms, slowest 177.97 ms (packet 196), worst 889.8% of its duration (177.97 ms)
+  reading the file: 0.25 s, 2.5% of real time
+  scratch: 5328 of 32768 bytes used
+[C:\OPUS]
+OALL SMB12.OPU 12000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SMB12.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 12000 Hz in 33.87 s: 338.3% of real time, CRC-32 FF48EE5F
+  per packet: mean 67.61 ms, slowest 110.80 ms (packet 392), worst 554.0% of its duration (110.80 ms)
+  reading the file: 0.16 s, 1.6% of real time
+  scratch: 4048 of 32768 bytes used
+[C:\OPUS]
+OALL SWB16.OPU 16000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SWB16.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 16000 Hz in 52.64 s: 525.7% of real time, CRC-32 324B00D7
+  per packet: mean 105.07 ms, slowest 177.96 ms (packet 196), worst 889.8% of its duration (177.96 ms)
+  reading the file: 0.25 s, 2.5% of real time
+  scratch: 5328 of 32768 bytes used
+[C:\OPUS]
+del OALL.EXE
+[C:\OPUS]
+== OGEN
+[sz OGEN.EXE at 38400: exit 0]
+a:\util\dsz port 1 speed 38400 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 38400 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 38400 d ha off rz -y '
+total            134580 bytes Estimated  0.8 Min
+OGEN.EXE         134580 bytes Estimated  0.7 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 9216 attempt 1: Bad CRC  Length=298
+   9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32    40960 ZMODEM CRC-32    41984 ZMODEM CRC-32    43008 ZMODEM CRC-32    44032 ZMODEM CRC-32    45056 ZMODEM CRC-32    46080 ZMODEM CRC-32    47104 ZMODEM CRC-32    48128 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 48128 attempt 1: Bad CRC  Length=271
+  48128 ZMODEM CRC-32    49152 ZMODEM CRC-32    50176 ZMODEM CRC-32    51200 ZMODEM CRC-32    52224 ZMODEM CRC-32    53248 ZMODEM CRC-32    54272 ZMODEM CRC-32    55296 ZMODEM CRC-32    56320 ZMODEM CRC-32    57344 ZMODEM CRC-32    58368 ZMODEM CRC-32    59392 ZMODEM CRC-32    60416 ZMODEM CRC-32    61440 ZMODEM CRC-32    62464 ZMODEM CRC-32    63488 ZMODEM CRC-32    64512 ZMODEM CRC-32    65536 ZMODEM CRC-32    66560 ZMODEM CRC-32    67584 ZMODEM CRC-32    68608 ZMODEM CRC-32    69632 ZMODEM CRC-32    70656 ZMODEM CRC-32    71680 ZMODEM CRC-32    72704 ZMODEM CRC-32    73728 ZMODEM CRC-32    74752 ZMODEM CRC-32    75776 ZMODEM CRC-32    76800 ZMODEM CRC-32    77824 ZMODEM CRC-32    78848 ZMODEM CRC-32    79872 ZMODEM CRC-32    80896 ZMODEM CRC-32    81920 ZMODEM CRC-32    82944 ZMODEM CRC-32    83968 ZMODEM CRC-32    84992 ZMODEM CRC-32    86016 ZMODEM CRC-32    87040 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 87040 attempt 1: Bad CRC  Length=293
+  87040 ZMODEM CRC-32    88064 ZMODEM CRC-32    89088 ZMODEM CRC-32    90112 ZMODEM CRC-32    91136 ZMODEM CRC-32    92160 ZMODEM CRC-32    93184 ZMODEM CRC-32    94208 ZMODEM CRC-32    95232 ZMODEM CRC-32    96256 ZMODEM CRC-32    97280 ZMODEM CRC-32    98304 ZMODEM CRC-32    99328 ZMODEM CRC-32   100352 ZMODEM CRC-32   101376 ZMODEM CRC-32   102400 ZMODEM CRC-32   103424 ZMODEM CRC-32   104448 ZMODEM CRC-32   105472 ZMODEM CRC-32   106496 ZMODEM CRC-32   107520 ZMODEM CRC-32   108544 ZMODEM CRC-32   109568 ZMODEM CRC-32   110592 ZMODEM CRC-32   111616 ZMODEM CRC-32   112640 ZMODEM CRC-32   113664 ZMODEM CRC-32   114688 ZMODEM CRC-32   115712 ZMODEM CRC-32   116736 ZMODEM CRC-32   117760 ZMODEM CRC-32   118784 ZMODEM CRC-32   119808 ZMODEM CRC-32   120832 ZMODEM CRC-32   121856 ZMODEM CRC-32   122880 ZMODEM CRC-32   123904 ZMODEM CRC-32   124928 ZMODEM CRC-32   125952 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 125952 attempt 1: Bad CRC  Length=318
+ 125952 ZMODEM CRC-32   126976 ZMODEM CRC-32   128000 ZMODEM CRC-32   129024 ZMODEM CRC-32   130048 ZMODEM CRC-32   131072 ZMODEM CRC-32   132096 ZMODEM CRC-32   133120 ZMODEM CRC-32   134144 ZMODEM CRC-32  
+Closing OGEN.EXE: 134580 chars  0.64 min 3475 ch/sec
+Ending ZMODEM session  
+
+Did you forget to register this copy?
+
+DSZ FINISHED! exit code = 0 [C:\OPUS]
+OGEN SMB12.OPU 12000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SMB12.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 34 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 12000 Hz in 58.41 s: 583.3% of real time, CRC-32 FF48EE5F
+  per packet: mean 116.59 ms, slowest 174.47 ms (packet 258), worst 872.4% of its duration (174.47 ms)
+  reading the file: 0.16 s, 1.6% of real time
+  scratch: 4048 of 32768 bytes used
+[C:\OPUS]
+OGEN SWB16.OPU 16000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SWB16.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 34 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 16000 Hz in 100.61 s: 1004.8% of real time, CRC-32 324B00D7
+  per packet: mean 200.83 ms, slowest 303.36 ms (packet 196), worst 1516.8% of its duration (303.36 ms)
+  reading the file: 0.26 s, 2.5% of real time
+  scratch: 5328 of 32768 bytes used
+[C:\OPUS]
+del OGEN.EXE
+[C:\OPUS]
+== OMUL
+[sz OMUL.EXE at 38400: exit 0]
+a:\util\dsz port 1 speed 38400 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 38400 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 38400 d ha off rz -y '
+total            130468 bytes Estimated  0.8 Min
+OMUL.EXE         130468 bytes Estimated  0.7 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 27648 attempt 1: Bad CRC  Length=269
+  27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32    40960 ZMODEM CRC-32    41984 ZMODEM CRC-32    43008 ZMODEM CRC-32    44032 ZMODEM CRC-32    45056 ZMODEM CRC-32    46080 ZMODEM CRC-32    47104 ZMODEM CRC-32    48128 ZMODEM CRC-32    49152 ZMODEM CRC-32    50176 ZMODEM CRC-32    51200 ZMODEM CRC-32    52224 ZMODEM CRC-32    53248 ZMODEM CRC-32    54272 ZMODEM CRC-32    55296 ZMODEM CRC-32    56320 ZMODEM CRC-32    57344 ZMODEM CRC-32    58368 ZMODEM CRC-32    59392 ZMODEM CRC-32    60416 ZMODEM CRC-32    61440 ZMODEM CRC-32    62464 ZMODEM CRC-32    63488 ZMODEM CRC-32    64512 ZMODEM CRC-32    65536 ZMODEM CRC-32    66560 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 66560 attempt 1: Bad CRC  Length=260
+  66560 ZMODEM CRC-32    67584 ZMODEM CRC-32    68608 ZMODEM CRC-32    69632 ZMODEM CRC-32    70656 ZMODEM CRC-32    71680 ZMODEM CRC-32    72704 ZMODEM CRC-32    73728 ZMODEM CRC-32    74752 ZMODEM CRC-32    75776 ZMODEM CRC-32    76800 ZMODEM CRC-32    77824 ZMODEM CRC-32    78848 ZMODEM CRC-32    79872 ZMODEM CRC-32    80896 ZMODEM CRC-32    81920 ZMODEM CRC-32    82944 ZMODEM CRC-32    83968 ZMODEM CRC-32    84992 ZMODEM CRC-32    86016 ZMODEM CRC-32    87040 ZMODEM CRC-32    88064 ZMODEM CRC-32    89088 ZMODEM CRC-32    90112 ZMODEM CRC-32    91136 ZMODEM CRC-32    92160 ZMODEM CRC-32    93184 ZMODEM CRC-32    94208 ZMODEM CRC-32    95232 ZMODEM CRC-32    96256 ZMODEM CRC-32    97280 ZMODEM CRC-32    98304 ZMODEM CRC-32    99328 ZMODEM CRC-32   100352 ZMODEM CRC-32   101376 ZMODEM CRC-32   102400 ZMODEM CRC-32   103424 ZMODEM CRC-32   104448 ZMODEM CRC-32   105472 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 105472 attempt 1: Bad CRC  Length=298
+ 105472 ZMODEM CRC-32   106496 ZMODEM CRC-32   107520 ZMODEM CRC-32   108544 ZMODEM CRC-32   109568 ZMODEM CRC-32   110592 ZMODEM CRC-32   111616 ZMODEM CRC-32   112640 ZMODEM CRC-32   113664 ZMODEM CRC-32   114688 ZMODEM CRC-32   115712 ZMODEM CRC-32   116736 ZMODEM CRC-32   117760 ZMODEM CRC-32   118784 ZMODEM CRC-32   119808 ZMODEM CRC-32   120832 ZMODEM CRC-32   121856 ZMODEM CRC-32   122880 ZMODEM CRC-32   123904 ZMODEM CRC-32   124928 ZMODEM CRC-32   125952 ZMODEM CRC-32   126976 ZMODEM CRC-32   128000 ZMODEM CRC-32   129024 ZMODEM CRC-32   130048 ZMODEM CRC-32  
+Closing OMUL.EXE: 130468 chars  0.59 min 3660 ch/sec
+Ending ZMODEM session  
+
+Did you forget to register this copy?
+
+DSZ FINISHED! exit code = 0 [C:\OPUS]
+OMUL SMB12.OPU 12000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SMB12.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 12000 Hz in 33.70 s: 336.6% of real time, CRC-32 FF48EE5F
+  per packet: mean 67.27 ms, slowest 112.54 ms (packet 258), worst 562.7% of its duration (112.54 ms)
+  reading the file: 0.16 s, 1.6% of real time
+  scratch: 4048 of 32768 bytes used
+[C:\OPUS]
+OMUL SWB16.OPU 16000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SWB16.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 16000 Hz in 52.76 s: 526.9% of real time, CRC-32 324B00D7
+  per packet: mean 105.31 ms, slowest 190.04 ms (packet 196), worst 950.2% of its duration (190.04 ms)
+  reading the file: 0.25 s, 2.5% of real time
+  scratch: 5328 of 32768 bytes used
+[C:\OPUS]
+del OMUL.EXE
+[C:\OPUS]
+== OFIR
+[sz OFIR.EXE at 38400: exit 0]
+a:\util\dsz port 1 speed 38400 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 38400 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 38400 d ha off rz -y '
+total            130468 bytes Estimated  0.8 Min
+OFIR.EXE         130468 bytes Estimated  0.7 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 11264 attempt 1: Bad CRC  Length=274
+  11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32    40960 ZMODEM CRC-32    41984 ZMODEM CRC-32    43008 ZMODEM CRC-32    44032 ZMODEM CRC-32    45056 ZMODEM CRC-32    46080 ZMODEM CRC-32    47104 ZMODEM CRC-32    48128 ZMODEM CRC-32    49152 ZMODEM CRC-32    50176 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 50176 attempt 1: Bad CRC  Length=301
+  50176 ZMODEM CRC-32    51200 ZMODEM CRC-32    52224 ZMODEM CRC-32    53248 ZMODEM CRC-32    54272 ZMODEM CRC-32    55296 ZMODEM CRC-32    56320 ZMODEM CRC-32    57344 ZMODEM CRC-32    58368 ZMODEM CRC-32    59392 ZMODEM CRC-32    60416 ZMODEM CRC-32    61440 ZMODEM CRC-32    62464 ZMODEM CRC-32    63488 ZMODEM CRC-32    64512 ZMODEM CRC-32    65536 ZMODEM CRC-32    66560 ZMODEM CRC-32    67584 ZMODEM CRC-32    68608 ZMODEM CRC-32    69632 ZMODEM CRC-32    70656 ZMODEM CRC-32    71680 ZMODEM CRC-32    72704 ZMODEM CRC-32    73728 ZMODEM CRC-32    74752 ZMODEM CRC-32    75776 ZMODEM CRC-32    76800 ZMODEM CRC-32    77824 ZMODEM CRC-32    78848 ZMODEM CRC-32    79872 ZMODEM CRC-32    80896 ZMODEM CRC-32    81920 ZMODEM CRC-32    82944 ZMODEM CRC-32    83968 ZMODEM CRC-32    84992 ZMODEM CRC-32    86016 ZMODEM CRC-32    87040 ZMODEM CRC-32    88064 ZMODEM CRC-32    89088 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 89088 attempt 1: Bad CRC  Length=299
+  89088 ZMODEM CRC-32    90112 ZMODEM CRC-32    91136 ZMODEM CRC-32    92160 ZMODEM CRC-32    93184 ZMODEM CRC-32    94208 ZMODEM CRC-32    95232 ZMODEM CRC-32    96256 ZMODEM CRC-32    97280 ZMODEM CRC-32    98304 ZMODEM CRC-32    99328 ZMODEM CRC-32   100352 ZMODEM CRC-32   101376 ZMODEM CRC-32   102400 ZMODEM CRC-32   103424 ZMODEM CRC-32   104448 ZMODEM CRC-32   105472 ZMODEM CRC-32   106496 ZMODEM CRC-32   107520 ZMODEM CRC-32   108544 ZMODEM CRC-32   109568 ZMODEM CRC-32   110592 ZMODEM CRC-32   111616 ZMODEM CRC-32   112640 ZMODEM CRC-32   113664 ZMODEM CRC-32   114688 ZMODEM CRC-32   115712 ZMODEM CRC-32   116736 ZMODEM CRC-32   117760 ZMODEM CRC-32   118784 ZMODEM CRC-32   119808 ZMODEM CRC-32   120832 ZMODEM CRC-32   121856 ZMODEM CRC-32   122880 ZMODEM CRC-32   123904 ZMODEM CRC-32   124928 ZMODEM CRC-32   125952 ZMODEM CRC-32   126976 ZMODEM CRC-32   128000 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 128000 attempt 1: Bad CRC  Length=767
+ 128000 ZMODEM CRC-32   129024 ZMODEM CRC-32   130048 ZMODEM CRC-32  
+Closing OFIR.EXE: 130468 chars  0.61 min 3561 ch/sec
+Ending ZMODEM session  
+
+Did you forget to register this copy?
+
+DSZ FINISHED! exit code = 0 [C:\OPUS]
+OFIR SMB12.OPU 12000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SMB12.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 12000 Hz in 33.56 s: 335.1% of real time, CRC-32 FF48EE5F
+  per packet: mean 66.99 ms, slowest 110.04 ms (packet 258), worst 550.2% of its duration (110.04 ms)
+  reading the file: 0.16 s, 1.6% of real time
+  scratch: 4048 of 32768 bytes used
+[C:\OPUS]
+OFIR SWB16.OPU 16000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SWB16.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 16000 Hz in 52.20 s: 521.3% of real time, CRC-32 324B00D7
+  per packet: mean 104.18 ms, slowest 177.50 ms (packet 196), worst 887.5% of its duration (177.50 ms)
+  reading the file: 0.25 s, 2.5% of real time
+  scratch: 5328 of 32768 bytes used
+[C:\OPUS]
+del OFIR.EXE
+[C:\OPUS]
+== OENT
+[sz OENT.EXE at 38400: exit 128]
+a:\util\dsz port 1 speed 38400 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 38400 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 38400 d ha off rz -y '
+total            130468 bytes Estimated  0.8 Min
+OENT.EXE         130468 bytes Estimated  0.7 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 33792 attempt 1: Bad CRC  Length=286
+  33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32    40960 ZMODEM CRC-32    41984 ZMODEM CRC-32    43008 ZMODEM CRC-32    44032 ZMODEM CRC-32    45056 ZMODEM CRC-32    46080 ZMODEM CRC-32    47104 ZMODEM CRC-32    48128 ZMODEM CRC-32    49152 ZMODEM CRC-32    50176 ZMODEM CRC-32    51200 ZMODEM CRC-32    52224 ZMODEM CRC-32    53248 ZMODEM CRC-32    54272 ZMODEM CRC-32    55296 ZMODEM CRC-32    56320 ZMODEM CRC-32    57344 ZMODEM CRC-32    58368 ZMODEM CRC-32    59392 ZMODEM CRC-32    60416 ZMODEM CRC-32    61440 ZMODEM CRC-32    62464 ZMODEM CRC-32    63488 ZMODEM CRC-32    64512 ZMODEM CRC-32    65536 ZMODEM CRC-32    66560 ZMODEM CRC-32    67584 ZMODEM CRC-32    68608 ZMODEM CRC-32    69632 ZMODEM CRC-32    70656 ZMODEM CRC-32    71680 ZMODEM CRC-32    72704 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 72704 attempt 1: Bad CRC  Length=263
+  72704 ZMODEM CRC-32    73728 ZMODEM CRC-32    74752 ZMODEM CRC-32    75776 ZMODEM CRC-32    76800 ZMODEM CRC-32    77824 ZMODEM CRC-32    78848 ZMODEM CRC-32    79872 ZMODEM CRC-32    80896 ZMODEM CRC-32    81920 ZMODEM CRC-32    82944 ZMODEM CRC-32    83968 ZMODEM CRC-32    84992 ZMODEM CRC-32    86016 ZMODEM CRC-32    87040 ZMODEM CRC-32    88064 ZMODEM CRC-32    89088 ZMODEM CRC-32    90112 ZMODEM CRC-32    91136 ZMODEM CRC-32    92160 ZMODEM CRC-32    93184 ZMODEM CRC-32    94208 ZMODEM CRC-32    95232 ZMODEM CRC-32    96256 ZMODEM CRC-32    97280 ZMODEM CRC-32    98304 ZMODEM CRC-32    99328 ZMODEM CRC-32   100352 ZMODEM CRC-32   101376 ZMODEM CRC-32   102400 ZMODEM CRC-32   103424 ZMODEM CRC-32   104448 ZMODEM CRC-32   105472 ZMODEM CRC-32   106496 ZMODEM CRC-32   107520 ZMODEM CRC-32   108544 ZMODEM CRC-32   109568 ZMODEM CRC-32   110592 ZMODEM CRC-32   111616 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 111616 attempt 1: Bad CRC  Length=273
+Byte 111616 attempt 2: Got Cancelled
+
+Closing OENT.EXE: 111616 chars  0.52 min 3528 ch/sec
+
+IN CASE OF DIFFICULTY please follow the instructions in Chapter 1 of DSZ.DOC.
+DSZ FINISHED! exit code = 1 [C:\OPUS]
+[sz OENT.EXE at 19200: exit 0]
+a:\util\dsz port 1 speed 19200 d ha off rz -y
+DSZ.EXE Copyright 05-24-97 by Omen Technology INC,
+        "The High Reliability Software"
+
+
+DSZ Registration and Documentation: $20 Check/MO
+Omen Technology Inc, P.O. BOX 4681, Portland OR 97208
+
+VISA/MC ZERO PAPERWORK Registration!  Data: 503-617-1698
+VOICE: 503-614-0430
+
+COM1 19200 bps  Carrier Detect DISABLED  Handshake off S/N 0
+Command line = 'port 1 speed 19200 d ha off rz -y '
+total            130468 bytes Estimated  1.4 Min
+OENT.EXE         130468 bytes Estimated  1.3 Min
+      0 ZMODEM CRC-32     1024 ZMODEM CRC-32     2048 ZMODEM CRC-32     3072 ZMODEM CRC-32     4096 ZMODEM CRC-32     5120 ZMODEM CRC-32     6144 ZMODEM CRC-32     7168 ZMODEM CRC-32     8192 ZMODEM CRC-32     9216 ZMODEM CRC-32    10240 ZMODEM CRC-32    11264 ZMODEM CRC-32    12288 ZMODEM CRC-32    13312 ZMODEM CRC-32    14336 ZMODEM CRC-32    15360 ZMODEM CRC-32    16384 ZMODEM CRC-32    17408 ZMODEM CRC-32    18432 ZMODEM CRC-32    19456 ZMODEM CRC-32    20480 ZMODEM CRC-32    21504 ZMODEM CRC-32    22528 ZMODEM CRC-32    23552 ZMODEM CRC-32    24576 ZMODEM CRC-32    25600 ZMODEM CRC-32    26624 ZMODEM CRC-32    27648 ZMODEM CRC-32    28672 ZMODEM CRC-32    29696 ZMODEM CRC-32    30720 ZMODEM CRC-32    31744 ZMODEM CRC-32    32768 ZMODEM CRC-32    33792 ZMODEM CRC-32    34816 ZMODEM CRC-32    35840 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 35840 attempt 1: Bad CRC  Length=779
+  35840 ZMODEM CRC-32    36864 ZMODEM CRC-32    37888 ZMODEM CRC-32    38912 ZMODEM CRC-32    39936 ZMODEM CRC-32    40960 ZMODEM CRC-32    41984 ZMODEM CRC-32    43008 ZMODEM CRC-32    44032 ZMODEM CRC-32    45056 ZMODEM CRC-32    46080 ZMODEM CRC-32    47104 ZMODEM CRC-32    48128 ZMODEM CRC-32    49152 ZMODEM CRC-32    50176 ZMODEM CRC-32    51200 ZMODEM CRC-32    52224 ZMODEM CRC-32    53248 ZMODEM CRC-32    54272 ZMODEM CRC-32    55296 ZMODEM CRC-32    56320 ZMODEM CRC-32    57344 ZMODEM CRC-32    58368 ZMODEM CRC-32    59392 ZMODEM CRC-32    60416 ZMODEM CRC-32    61440 ZMODEM CRC-32    62464 ZMODEM CRC-32    63488 ZMODEM CRC-32    64512 ZMODEM CRC-32    65536 ZMODEM CRC-32    66560 ZMODEM CRC-32    67584 ZMODEM CRC-32    68608 ZMODEM CRC-32    69632 ZMODEM CRC-32    70656 ZMODEM CRC-32    71680 ZMODEM CRC-32    72704 ZMODEM CRC-32    73728 ZMODEM CRC-32    74752 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 74752 attempt 1: Bad CRC  Length=761
+  74752 ZMODEM CRC-32    75776 ZMODEM CRC-32    76800 ZMODEM CRC-32    77824 ZMODEM CRC-32    78848 ZMODEM CRC-32    79872 ZMODEM CRC-32    80896 ZMODEM CRC-32    81920 ZMODEM CRC-32    82944 ZMODEM CRC-32    83968 ZMODEM CRC-32    84992 ZMODEM CRC-32    86016 ZMODEM CRC-32    87040 ZMODEM CRC-32    88064 ZMODEM CRC-32    89088 ZMODEM CRC-32    90112 ZMODEM CRC-32    91136 ZMODEM CRC-32    92160 ZMODEM CRC-32    93184 ZMODEM CRC-32    94208 ZMODEM CRC-32    95232 ZMODEM CRC-32    96256 ZMODEM CRC-32    97280 ZMODEM CRC-32    98304 ZMODEM CRC-32    99328 ZMODEM CRC-32   100352 ZMODEM CRC-32   101376 ZMODEM CRC-32   102400 ZMODEM CRC-32   103424 ZMODEM CRC-32   104448 ZMODEM CRC-32   105472 ZMODEM CRC-32   106496 ZMODEM CRC-32   107520 ZMODEM CRC-32   108544 ZMODEM CRC-32   109568 ZMODEM CRC-32   110592 ZMODEM CRC-32   111616 ZMODEM CRC-32   112640 ZMODEM CRC-32   113664 ZMODEM CRC-32  
+Serial Input Error: Line Status Register 01
+Byte 113664 attempt 1: Bad CRC  Length=775
+ 113664 ZMODEM CRC-32   114688 ZMODEM CRC-32   115712 ZMODEM CRC-32   116736 ZMODEM CRC-32   117760 ZMODEM CRC-32   118784 ZMODEM CRC-32   119808 ZMODEM CRC-32   120832 ZMODEM CRC-32   121856 ZMODEM CRC-32   122880 ZMODEM CRC-32   123904 ZMODEM CRC-32   124928 ZMODEM CRC-32   125952 ZMODEM CRC-32   126976 ZMODEM CRC-32   128000 ZMODEM CRC-32   129024 ZMODEM CRC-32   130048 ZMODEM CRC-32  
+Closing OENT.EXE: 130468 chars  1.13 min 1920 ch/sec
+Ending ZMODEM session  
+
+Did you forget to register this copy?
+
+DSZ FINISHED! exit code = 0 [C:\OPUS]
+OENT SMB12.OPU 12000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SMB12.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 12000 Hz in 34.01 s: 339.7% of real time, CRC-32 FF48EE5F
+  per packet: mean 67.89 ms, slowest 113.28 ms (packet 392), worst 566.4% of its duration (113.28 ms)
+  reading the file: 0.16 s, 1.6% of real time
+  scratch: 4048 of 32768 bytes used
+[C:\OPUS]
+OENT SWB16.OPU 16000 -s 10 -p
+DOS/32A -- DOS Extender version 9.1.2
+Copyright (C) 1996-2006 by Narech K.
+DOS/32A warning (9004): mouse initialization failed
+DOS/32A warning (9001): no extended memory has been allocated
+SWB16.OPU: 1 channel(s), streamed packet by packet, timed with the PIT
+  memory left: DOS 39 KB, DPMI 0 KB
+  SILK 501, hybrid 0, CELT 0 packets
+  decoded 10.01 s of audio at 16000 Hz in 53.21 s: 531.4% of real time, CRC-32 324B00D7
+  per packet: mean 106.21 ms, slowest 190.76 ms (packet 196), worst 953.8% of its duration (190.76 ms)
+  reading the file: 0.25 s, 2.5% of real time
+  scratch: 5328 of 32768 bytes used
+[C:\OPUS]
+del OENT.EXE
+[C:\OPUS]
+
+== summary (% of real time; worst = slowest packet against its duration)
+  OALL  SMB12.OPU  12000 Hz   338.3%  worst  554.0%  read  1.6%  CRC ok
+  OALL  SWB16.OPU  16000 Hz   525.7%  worst  889.8%  read  2.5%  CRC ok
+  OALL  SMB12.OPU  12000 Hz   338.3%  worst  554.0%  read  1.6%  CRC ok
+  OALL  SWB16.OPU  16000 Hz   525.7%  worst  889.8%  read  2.5%  CRC ok
+  OGEN  SMB12.OPU  12000 Hz   583.3%  worst  872.4%  read  1.6%  CRC ok
+  OGEN  SWB16.OPU  16000 Hz  1004.8%  worst 1516.8%  read  2.5%  CRC ok
+  OMUL  SMB12.OPU  12000 Hz   336.6%  worst  562.7%  read  1.6%  CRC ok
+  OMUL  SWB16.OPU  16000 Hz   526.9%  worst  950.2%  read  2.5%  CRC ok
+  OFIR  SMB12.OPU  12000 Hz   335.1%  worst  550.2%  read  1.6%  CRC ok
+  OFIR  SWB16.OPU  16000 Hz   521.3%  worst  887.5%  read  2.5%  CRC ok
+  OENT  SMB12.OPU  12000 Hz   339.7%  worst  566.4%  read  1.6%  CRC ok
+  OENT  SWB16.OPU  16000 Hz   531.4%  worst  953.8%  read  2.5%  CRC ok
+results in /home/nlewis/Projects/dos-opus/build/hw_results/20261114-161824.json
