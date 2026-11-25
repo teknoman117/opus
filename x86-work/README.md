@@ -11,19 +11,34 @@ tools and measurements are in `x86-work/` (this folder).
 | (`dos486`) | 486: fixed point, and float on a 486DX's FPU | not started |
 | (`dos586`) | Pentium and later: superscalar fixed point (U/V pairing), and integer work interleaved with FPU work, Quake style | not started |
 
-## Trying a branch in OPUS4DOS
+## Building and timing a branch
 
-The `dos386` code is only compiled in when `OPUS_X86_386_ASM` is defined; OPUS4DOS's
-`config/config.h` doesn't define it. To try it:
+`x86-work` is a CMake project of its own: libopus from this clone (whatever branch is checked
+out), configured by `src/include/config/config.h`, and OPUSDOS (`src/opusdos.c`), which decodes
+an Ogg Opus file and times it.
 
-    cd ~/Projects/opus4dos/external/opus
-    git remote add x86 ~/Projects/opus-x86 && git fetch x86 && git checkout x86/dos386
-    # and in ../../config/config.h, under __WATCOMC__:  #define OPUS_X86_386_ASM 1
+    cmake -S x86-work -B x86-work/build/dos -G Ninja --toolchain $PWD/x86-work/cmake/openwatcom-dos32a.cmake
+    cmake --build x86-work/build/dos               # x86-work/build/dos/OPUSDOS.EXE
+    cmake -S x86-work -B x86-work/build/host -G Ninja && cmake --build x86-work/build/host
 
-(`git checkout v1.6.1` there undoes it.) For a SILK-only build, link `x86-work/celt_stub.c`
-ahead of the library: it stands in for the CELT decoder's entry points, so SILK streams decode
-bit-exact, CELT and hybrid packets fail with OPUS_UNIMPLEMENTED, and CELT's code and tables (about
-70 KB) stay out of the executable.
+The host build's CRCs are the reference: a DOS build must give the same ones. `-DX86_DEFINES=`
+takes config.h's switches for A/B builds (`OPUS_NO_386_ASM`, `OPUS_NO_386_FIR`,
+`OPUS_386_ENTDEC`); `-DX86_SILK_ONLY=ON` links `src/celt_stub.c` ahead of libopus, which stands
+in for the CELT decoder's entry points, so SILK streams decode bit-exact, CELT and hybrid
+packets fail with OPUS_UNIMPLEMENTED, and CELT's code and tables (about 70 KB) stay out.
+
+    OPUSDOS file.opus [rate] [-s seconds] [-o out.wav] [-p]
+
+decodes into memory and times opus_decode() alone (`-p`: streams the file and times each packet
+with the PIT, with the slowest packet against its deadline). `scripts/`: `run_dosbox.sh` runs it
+in DOSBox (correctness, not speed), `run386.py` on an emulated 386SX-25 (86Box, `scripts/vm386`),
+`prof386.py` samples where it spends its time there and `prof_map.py` maps the samples to
+functions, `compare.py` gives one WAV's SNR against another. Test streams go in
+`x86-work/media`, which isn't in git (they're made from commercial recordings).
+
+OPUS4DOS (`~/Projects/opus4dos`) can take a branch too: check it out in its `external/opus`
+(`git remote add x86 ~/Projects/opus-x86 && git fetch x86 && git checkout x86/dos386`) and define
+`OPUS_X86_386_ASM` in its config.h.
 
 ## dos386: what's there
 
@@ -108,3 +123,12 @@ from extended memory only).
 - **586+**: U/V pipe pairing in the fixed-point kernels; for float, FPU multiplies and adds
   interleaved with integer work (the range decoder, bit unpacking) the way Quake overlapped its
   FDIV with integer code; CELT's IMDCT is the big target.
+
+## License
+
+What this work adds is MIT licensed (`x86-work/LICENSE`): everything in `x86-work/`, and the new
+x86 headers in libopus's tree (`celt/x86/fixed_386.h`, `silk/x86/macros_386.h`,
+`silk/x86/SigProc_FIX_386.h`, `silk/x86/LPC_analysis_filter_386.h`), each marked with an SPDX
+line. The changes to libopus's own files on these branches are under libopus's BSD license
+(`COPYING`), as those files are. An OPUSDOS.EXE built here also contains libopus, the DOS/32
+Advanced DOS Extender and OpenWatcom's C library: see OPUS4DOS's `NOTICE` for their terms.

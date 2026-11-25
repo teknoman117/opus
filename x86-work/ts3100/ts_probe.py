@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Boot the emulated TS-3100 (86Box, 512 KB) and run DOS commands on its console.
 
 Usage: ts_probe.py <86Box> <command>...

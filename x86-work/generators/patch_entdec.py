@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Make the range decoder's multiplies take their small operand as the 386's
 optimizing multiplier under OPUS_X86_386_ASM (idempotent).
 

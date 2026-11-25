@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: MIT
+# OPUSDOS, the decoder test bench for the x86 work: libopus from this clone (the branch checked
+# out), and OPUSDOS, which decodes an Ogg Opus file and times it.
+#
+# DOS (OpenWatcom 2, 32-bit, DOS/32A):
+#   cmake -S x86-work -B build/dos -G Ninja --toolchain x86-work/cmake/openwatcom-dos32a.cmake
+#   cmake --build build/dos                      -> build/dos/OPUSDOS.EXE
+# Host (the reference the DOS builds are checked against):
+#   cmake -S x86-work -B build/host -G Ninja && cmake --build build/host   -> build/host/opusdos
+#
+# For A/B builds: -DX86_DEFINES="OPUS_NO_386_FIR;OPUS_386_ENTDEC" (see src/include/config/config.h), and
+# -DX86_SILK_ONLY=ON to leave CELT out (src/celt_stub.c), as a 512 KB board needs.
+cmake_minimum_required(VERSION 3.21)
+project(opus-x86 C)
+
+set(X86_DEFINES "" CACHE STRING "Macros for src/include/config/config.h's switches, for A/B builds")
+option(X86_SILK_ONLY "Leave CELT out: SILK packets only" OFF)
+add_compile_definitions(${X86_DEFINES})
+
+if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
+    # The flat model, 386 register calling, floating point by library calls (no FPU needed), no
+    # stack checks, optimized for speed, structures packed to 4 bytes; DOS/32A bound in.
+    set(CMAKE_C_FLAGS "-bt=dos")
+    foreach(type DEBUG RELEASE RELWITHDEBINFO MINSIZEREL)
+        set(CMAKE_C_FLAGS_${type} "")
+        set(CMAKE_EXE_LINKER_FLAGS_${type} "")
+    endforeach()
+    set(CMAKE_EXE_LINKER_FLAGS "system dos32a")
+    add_compile_options(-mf -3r -fpc -s -otexan -zp4)
+    # Watcom ends an option's file name at a '-', and libopus's objects are named after their
+    # full paths (they're outside this directory), which have one (opus-x86): quote them.
+    set(CMAKE_C_COMPILE_OBJECT
+        "<CMAKE_C_COMPILER> -zq -d+ <DEFINES> <INCLUDES> <FLAGS> \"-fo=\\\"<OBJECT>\\\"\" -c -cc <SOURCE>")
+    # CMake tracks no header dependencies for OpenWatcom: wcc386's -ad files, read by Ninja.
+    set(CMAKE_DEPFILE_FLAGS_C
+        "\"-ad=\\\"<DEP_FILE>\\\"\" \"-adt=\\\"<OBJECT>\\\"\" \"-add=\\\"<SOURCE>\\\"\" -adfs")
+    set(CMAKE_C_DEPFILE_FORMAT gcc)
+    set(CMAKE_C_DEPENDS_USE_COMPILER TRUE)
+elseif(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+include(cmake/libopus.cmake)
+
+add_executable(opusdos src/opusdos.c)
+if(X86_SILK_ONLY)
+    target_sources(opusdos PRIVATE src/celt_stub.c)
+    target_include_directories(opusdos PRIVATE "${OPUS_DIR}/celt")
+endif()
+target_include_directories(opusdos PRIVATE src/include/config)
+target_link_libraries(opusdos PRIVATE opus)
+if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
+    set_target_properties(opusdos PROPERTIES OUTPUT_NAME OPUSDOS SUFFIX .EXE LINK_FLAGS "option stack=64k")
+else()
+    target_link_libraries(opusdos PRIVATE m)
+endif()

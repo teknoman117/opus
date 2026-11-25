@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """A/B timing of the OPUSDOS variants on the real TS-3100.
 
 Usage: hw_bench.py [--dir C:\\OPUS] [--variants OALL,OGEN,...] [--quick] [--no-celt]

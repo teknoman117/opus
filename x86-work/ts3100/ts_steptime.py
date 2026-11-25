@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """How much host time the emulated TS-3100 takes per emulated second, in
 one big step and in 5 ms steps (as the ZMODEM bridge takes them), with
 fast forward off and on.

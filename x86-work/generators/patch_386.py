@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Hook the 386 headers into libopus behind OPUS_X86_386_ASM (idempotent).
 
 Usage: patch_386.py <opus dir>

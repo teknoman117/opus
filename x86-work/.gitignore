@@ -1,0 +1,6 @@
+build/
+media/
+__pycache__/
+scripts/vm386/log
+scripts/vm386/g.cfg
+scripts/vm386/*.log

@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT */
 /* SILK's 32x16 and 32x32 multiplies for the 386, with OpenWatcom.
 
    macros.h splits these into two 16x16 multiplies when there is no fast
