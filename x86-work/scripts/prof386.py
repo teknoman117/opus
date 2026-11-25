@@ -47,7 +47,7 @@ for line in open(mapfile, errors="replace"):
     if m:
         module = os.path.basename(m.group(1).strip())
         continue
-    m = re.match(r"0001:([0-9a-f]{8})[ *+]+(\S+)", line)
+    m = re.match(r"0001:([0-9a-f]{8})[ *+s]\s*(\S+)", line)
     if m:
         syms.append((int(m.group(1), 16), m.group(2), module))
 syms.sort()

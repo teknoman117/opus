@@ -44,6 +44,10 @@
 #include "arm/mathops_arm.h"
 #endif
 
+#if defined(OPUS_X87_ASM)
+#include "x86/float_x87.h"
+#endif
+
 #define PI 3.1415926535897931
 
 /* Multiplies two 16-bit fractional values. Bit-exactness of this macro is important */

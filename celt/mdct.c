@@ -301,6 +301,29 @@ void clt_mdct_backward_c(const mdct_lookup *l, kiss_fft_scalar *in, kiss_fft_sca
       fft_shift = pre_shift - post_shift;
    }
 #endif
+#ifdef OPUS_X87_MDCT
+   {
+      struct mdct_x87_args a;
+      a.in1 = in;
+      a.in2 = in+stride*(N2-1);
+      a.out = out+(overlap>>1);
+      a.t = trig;
+      a.bitrev = l->kfft[shift]->bitrev;
+      a.n = N4;
+      a.step = 2*stride*(int)sizeof(*in);
+      mdct_prerot_x87(&a);
+      opus_fft_impl(l->kfft[shift], (kiss_fft_cpx*)(out+(overlap>>1)));
+      a.in1 = out+(overlap>>1);
+      a.in2 = out+(overlap>>1)+N2-2;
+      mdct_postrot_x87(&a);
+      a.in1 = out+overlap-1;
+      a.in2 = out;
+      a.t = window;
+      a.n = overlap;
+      mdct_mirror_x87(&a);
+      return;
+   }
+#endif
    /* Pre-rotate */
    {
       /* Temp pointers to make it really clear to the compiler what we're doing */

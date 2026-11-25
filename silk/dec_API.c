@@ -422,6 +422,18 @@ opus_int silk_Decode(                                   /* O    Returns error co
         ret += silk_resampler( &channel_state[ n ].resampler_state, resample_out_ptr, &samplesOut1_tmp[ n ][ 1 ], nSamplesOutDec );
 #endif
         /* Interleave if stereo output and stereo stream */
+#ifdef OPUS_INT16_DIRECT
+        if( decControl->samplesOut16 != NULL ) {
+            opus_int16 *out16 = decControl->samplesOut16;
+            if( decControl->nChannelsAPI == 2 ) {
+                for( i = 0; i < *nSamplesOut; i++ ) {
+                    out16[ n + 2 * i ] = resample_out_ptr[ i ];
+                }
+            } else {
+                silk_memcpy( out16, resample_out_ptr, *nSamplesOut * sizeof( opus_int16 ) );
+            }
+        } else
+#endif
         if( decControl->nChannelsAPI == 2 ) {
             for( i = 0; i < *nSamplesOut; i++ ) {
                 samplesOut[ n + 2 * i ] = INT16TORES(resample_out_ptr[ i ]);
@@ -444,10 +456,25 @@ opus_int silk_Decode(                                   /* O    Returns error co
                we weren't doing collapsing when switching to mono */
             ret += silk_resampler( &channel_state[ 1 ].resampler_state, resample_out_ptr, &samplesOut1_tmp[ 0 ][ 1 ], nSamplesOutDec );
 
+#ifdef OPUS_INT16_DIRECT
+            if( decControl->samplesOut16 != NULL ) {
+                for( i = 0; i < *nSamplesOut; i++ ) {
+                    decControl->samplesOut16[ 1 + 2 * i ] = resample_out_ptr[ i ];
+                }
+            } else
+#endif
             for( i = 0; i < *nSamplesOut; i++ ) {
                 samplesOut[ 1 + 2 * i ] = INT16TORES(resample_out_ptr[ i ]);
             }
         } else {
+#ifdef OPUS_INT16_DIRECT
+            if( decControl->samplesOut16 != NULL ) {
+                opus_int16 *out16 = decControl->samplesOut16;
+                for( i = 0; i < *nSamplesOut; i++ ) {
+                    out16[ 1 + 2 * i ] = out16[ 0 + 2 * i ];
+                }
+            } else
+#endif
             for( i = 0; i < *nSamplesOut; i++ ) {
                 samplesOut[ 1 + 2 * i ] = samplesOut[ 0 + 2 * i ];
             }

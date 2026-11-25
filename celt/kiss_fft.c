@@ -594,16 +594,28 @@ void opus_fft_impl(const kiss_fft_state *st,kiss_fft_cpx *fout ARG_FIXED(int dow
           break;
        case 4:
           fft_downshift(fout, st->nfft, &downshift, 2);
+#ifdef OPUS_X87_KF_BFLY
+          kf_bfly4_x87(fout,st->twiddles,fstride[i]<<shift,m, fstride[i], m2);
+#else
           kf_bfly4(fout,fstride[i]<<shift,st,m, fstride[i], m2);
+#endif
           break;
  #ifndef RADIX_TWO_ONLY
        case 3:
           fft_downshift(fout, st->nfft, &downshift, 2);
+#ifdef OPUS_X87_KF_BFLY
+          kf_bfly3_x87(fout,st->twiddles,fstride[i]<<shift,m, fstride[i], m2);
+#else
           kf_bfly3(fout,fstride[i]<<shift,st,m, fstride[i], m2);
+#endif
           break;
        case 5:
           fft_downshift(fout, st->nfft, &downshift, 3);
+#ifdef OPUS_X87_KF_BFLY
+          kf_bfly5_x87(fout,st->twiddles,fstride[i]<<shift,m, fstride[i], m2);
+#else
           kf_bfly5(fout,fstride[i]<<shift,st,m, fstride[i], m2);
+#endif
           break;
  #endif
        }

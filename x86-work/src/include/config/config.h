@@ -12,6 +12,14 @@
 #define DISABLE_FLOAT_API 1
 #endif
 
+/* With the float build's x87 routines: opus_decode() decodes packets that continue the previous
+   one's mode, SILK-only or (stereo, at 48 kHz) CELT-only, straight to 16 bits, as the
+   fixed-point decoder does (saturating, with no soft clip), rather than to float and then
+   converting. It changes internal structs, so it's here, where every file sees it. */
+#if defined(OPUS_X86_FLOAT) && defined(OPUS_X87_ASM)
+#define OPUS_INT16_DIRECT 1
+#endif
+
 /* Scratch memory from one global block rather than alloca or variable-length arrays. The
    decoder uses about 8 KB of it at most (OPUSDOS reports it). */
 #define NONTHREADSAFE_PSEUDOSTACK 1

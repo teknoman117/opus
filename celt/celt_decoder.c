@@ -99,6 +99,9 @@ struct OpusCustomDecoder {
 #ifdef ENABLE_QEXT
    int qext_scale;
 #endif
+#ifdef OPUS_INT16_DIRECT
+   opus_int16 *pcm16;
+#endif
 
    /* Everything beyond this point gets cleared on a reset */
 #define DECODER_RESET_START rng
@@ -312,6 +315,33 @@ static void deemphasis_stereo_simple(celt_sig *in[], opus_res *pcm, int N, const
 }
 #endif
 
+#ifdef OPUS_INT16_DIRECT
+/* deemphasis() to 16-bit samples, saturated (OPUS_INT16_DIRECT): output at the full rate, not
+   accumulating. */
+static void deemphasis16(celt_sig *in[], opus_int16 *pcm, int N, int C, const opus_val16 *coef, celt_sig *mem)
+{
+   int c, j;
+#ifdef OPUS_X87_DEEMPHASIS16
+   if (C == 2)
+   {
+      deemphasis16_stereo_x87(in[0], in[1], pcm, N, mem, coef);
+      return;
+   }
+#endif
+   for (c=0;c<C;c++)
+   {
+      celt_sig m = mem[c];
+      for (j=0;j<N;j++)
+      {
+         celt_sig tmp = in[c][j] + VERY_SMALL + m;
+         m = MULT16_32_Q15(coef[0], tmp);
+         pcm[j*C+c] = FLOAT2INT16(SIG2RES(tmp));
+      }
+      mem[c] = m;
+   }
+}
+#endif
+
 #ifndef RESYNTH
 static
 #endif
@@ -328,7 +358,11 @@ void deemphasis(celt_sig *in[], opus_res *pcm, int N, int C, int downsample, con
    /* Short version for common case. */
    if (downsample == 1 && C == 2 && !accum)
    {
+#ifdef OPUS_X87_DEEMPHASIS
+      deemphasis_stereo_x87(in[0], in[1], pcm, N, mem, coef);
+#else
       deemphasis_stereo_simple(in, pcm, N, coef[0], mem);
+#endif
       return;
    }
 #endif
@@ -1281,6 +1315,11 @@ int celt_decode_with_ec_dred(CELTDecoder * OPUS_RESTRICT st, const unsigned char
       , lpcnet
 #endif
                       );
+#ifdef OPUS_INT16_DIRECT
+      if (st->pcm16)
+         deemphasis16(out_syn, st->pcm16, N, CC, mode->preemph, st->preemph_memD);
+      else
+#endif
       deemphasis(out_syn, pcm, N, CC, st->downsample, mode->preemph, st->preemph_memD, accum);
       RESTORE_STACK;
       return frame_size/st->downsample;
@@ -1595,6 +1634,11 @@ int celt_decode_with_ec_dred(CELTDecoder * OPUS_RESTRICT st, const unsigned char
    if (qext_bytes) st->rng = st->rng ^ ext_dec.rng;
 #endif
 
+#ifdef OPUS_INT16_DIRECT
+   if (st->pcm16)
+      deemphasis16(out_syn, st->pcm16, N, CC, mode->preemph, st->preemph_memD);
+   else
+#endif
    deemphasis(out_syn, pcm, N, CC, st->downsample, mode->preemph, st->preemph_memD, accum);
    st->loss_duration = 0;
    st->plc_duration = 0;
@@ -1762,6 +1806,13 @@ int opus_custom_decoder_ctl(CELTDecoder * OPUS_RESTRICT st, int request, ...)
          st->end = value;
       }
       break;
+#ifdef OPUS_INT16_DIRECT
+      case CELT_SET_PCM16_REQUEST:
+      {
+         st->pcm16 = va_arg(ap, opus_int16 *);
+      }
+      break;
+#endif
       case CELT_SET_CHANNELS_REQUEST:
       {
          opus_int32 value = va_arg(ap, opus_int32);

@@ -4,3 +4,6 @@ __pycache__/
 scripts/vm386/log
 scripts/vm386/g.cfg
 scripts/vm386/*.log
+
+# A symlink to the main checkout's media (worktrees): not a directory, so media/ misses it.
+/media

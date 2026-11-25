@@ -159,6 +159,12 @@ typedef struct {
     opus_int prev_osce_extended_mode;
 #endif
 #endif
+
+#ifdef OPUS_INT16_DIRECT
+    /* I:   If not NULL, where silk_Decode() writes its output, as 16-bit samples, rather than
+            to samplesOut                                                                   */
+    opus_int16 *samplesOut16;
+#endif
 } silk_DecControlStruct;
 
 #endif

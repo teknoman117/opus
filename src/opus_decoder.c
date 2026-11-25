@@ -91,7 +91,27 @@ struct OpusDecoder {
 #endif
 
    opus_uint32  rangeFinal;
+#ifdef OPUS_INT16_DIRECT
+   /* opus_decode() of a packet decoded straight to 16 bits: pcm16 is the caller's buffer, for
+      the float one at pcm16_base. pcm16_state is 1 while the frames go to pcm16, 2 once they've
+      had to go to the float buffer after all (a redundant CELT frame), 0 otherwise. */
+   opus_int16  *pcm16;
+   opus_res    *pcm16_base;
+   int          pcm16_state;
+#endif
 };
+
+#ifdef OPUS_INT16_DIRECT
+/* A frame of a packet being decoded straight to 16 bits needs the float buffer after all: put
+   what's been decoded so far, up to end, there, and go on in float. */
+static void pcm16_fall_back(OpusDecoder *st, const opus_res *end)
+{
+   int i, n = (int)(end - st->pcm16_base);
+   for (i=0;i<n;i++)
+      st->pcm16_base[i] = INT16TORES(st->pcm16[i]);
+   st->pcm16_state = 2;
+}
+#endif
 
 #if defined(ENABLE_HARDENING) || defined(ENABLE_ASSERTIONS)
 static void validate_opus_decoder(OpusDecoder *st)
@@ -471,6 +491,11 @@ static int opus_decode_frame(OpusDecoder *st, const unsigned char *data,
      do {
         /* Call SILK decoder */
         int first_frame = decoded_samples == 0;
+#ifdef OPUS_INT16_DIRECT
+        if (st->pcm16_state == 1 && pcm_too_small)
+           pcm16_fall_back(st, pcm);
+        st->DecControl.samplesOut16 = st->pcm16_state == 1 ? st->pcm16 + (pcm_ptr - st->pcm16_base) : NULL;
+#endif
         silk_ret = silk_Decode( silk_dec, &st->DecControl,
                                 lost_flag, first_frame, &dec, pcm_ptr, &silk_frame_size,
 #ifdef ENABLE_DEEP_PLC
@@ -481,6 +506,11 @@ static int opus_decode_frame(OpusDecoder *st, const unsigned char *data,
            if (lost_flag) {
               /* PLC failure should not be fatal */
               silk_frame_size = frame_size;
+#ifdef OPUS_INT16_DIRECT
+              if (st->pcm16_state == 1)
+                 OPUS_CLEAR(st->pcm16 + (pcm_ptr - st->pcm16_base), frame_size*st->channels);
+              else
+#endif
               for (i=0;i<frame_size*st->channels;i++)
                  pcm_ptr[i] = 0;
            } else {
@@ -491,6 +521,9 @@ static int opus_decode_frame(OpusDecoder *st, const unsigned char *data,
         pcm_ptr += silk_frame_size * st->channels;
         decoded_samples += silk_frame_size;
       } while( decoded_samples < frame_size );
+#ifdef OPUS_INT16_DIRECT
+     st->DecControl.samplesOut16 = NULL;
+#endif
      if (pcm_too_small) {
         OPUS_COPY(pcm, pcm_silk, frame_size*st->channels);
      }
@@ -528,6 +561,11 @@ static int opus_decode_frame(OpusDecoder *st, const unsigned char *data,
    }
    if (mode != MODE_CELT_ONLY)
       start_band = 17;
+#ifdef OPUS_INT16_DIRECT
+   /* A redundant CELT frame is mixed in with the float samples. */
+   if (redundancy && st->pcm16_state == 1)
+      pcm16_fall_back(st, pcm + frame_size*st->channels);
+#endif
 
    if (redundancy)
    {
@@ -603,12 +641,20 @@ static int opus_decode_frame(OpusDecoder *st, const unsigned char *data,
       if (mode != st->prev_mode && st->prev_mode > 0 && !st->prev_redundancy)
          MUST_SUCCEED(celt_decoder_ctl(celt_dec, OPUS_RESET_STATE));
       /* Decode CELT */
+#ifdef OPUS_INT16_DIRECT
+      if (st->pcm16_state == 1)
+         MUST_SUCCEED(celt_decoder_ctl(celt_dec, CELT_SET_PCM16(st->pcm16 + (pcm - st->pcm16_base))));
+#endif
       celt_ret = celt_decode_with_ec_dred(celt_dec, decode_fec ? NULL : data,
                                      len, pcm, celt_frame_size, &dec, celt_accum
 #ifdef ENABLE_DEEP_PLC
                                      , &st->lpcnet
 #endif
                                      ARG_QEXT(ext ? ext->data : NULL) ARG_QEXT(ext ? ext->len : 0));
+#ifdef OPUS_INT16_DIRECT
+      if (st->pcm16_state == 1)
+         MUST_SUCCEED(celt_decoder_ctl(celt_dec, CELT_SET_PCM16(NULL)));
+#endif
       celt_decoder_ctl(celt_dec, OPUS_GET_FINAL_RANGE(&st->rangeFinal));
    } else {
       unsigned char silence[2] = {0xFF, 0xFF};
@@ -870,6 +916,10 @@ int opus_decode_native(OpusDecoder *st, const unsigned char *data,
    if (OPUS_CHECK_ARRAY(pcm, nb_samples*st->channels))
       OPUS_PRINT_INT(nb_samples);
 #ifndef FIXED_POINT
+#ifdef OPUS_INT16_DIRECT
+   if (st->pcm16_state == 1)
+      soft_clip = 0;
+#endif
    if (soft_clip)
       opus_pcm_soft_clip_impl(pcm, nb_samples, st->channels, st->softclip_mem, st->arch);
    else
@@ -917,7 +967,34 @@ int opus_decode(OpusDecoder *st, const unsigned char *data,
        celt_assert(st->channels == 1 || st->channels == 2);
        ALLOC(out, frame_size*st->channels, opus_res);
 
+#ifdef OPUS_INT16_DIRECT
+       /* Straight to 16 bits, if the packet continues the previous one's mode, SILK-only or
+          (stereo, at 48 kHz) CELT-only: nothing but SILK or CELT touches its samples then, short
+          of a redundant frame (which falls back), a transition or a gain. */
+       if (data != NULL && len > 1 && !decode_fec && !st->decode_gain
+           && st->prev_mode == opus_packet_get_mode(data)
+           && (st->prev_mode == MODE_SILK_ONLY
+               || (st->prev_mode == MODE_CELT_ONLY && st->channels == 2 && st->Fs == 48000)))
+       {
+          st->pcm16 = pcm;
+          st->pcm16_base = out;
+          st->pcm16_state = 1;
+       }
+#endif
        ret = opus_decode_native(st, data, len, out, frame_size, decode_fec, 0, NULL, OPTIONAL_CLIP, NULL, 0);
+#ifdef OPUS_INT16_DIRECT
+       if (st->pcm16_state == 1)
+       {
+          /* soft_clip was off: so is its memory, as when soft_clip is off. */
+          st->softclip_mem[0] = st->softclip_mem[1] = 0;
+          st->pcm16_state = 0;
+          st->pcm16 = NULL;
+          RESTORE_STACK;
+          return ret;
+       }
+       st->pcm16_state = 0;
+       st->pcm16 = NULL;
+#endif
        if (ret > 0)
        {
 # if defined(FIXED_POINT)

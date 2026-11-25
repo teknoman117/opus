@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 """Count the instructions OPUSDOS executes decoding each file, and time it, on an emulated 486.
 
-Usage: insncount.py <86Box> <OPUSDOS.EXE> <cpu> <out.json> <file.opu>... [--rate 48000] [--seconds 10] [--args "<OPUSDOS options>"] [--watch]
+Usage: insncount.py <86Box> <OPUSDOS.EXE> <cpu> <out.json> <file.opu>... [--rate 48000] [--seconds 10] [--args "<OPUSDOS options>"] [--profile <ms>] [--watch]
 
 <cpu> is dx33, dx2-66 or dx4-100. The machine is an ABIT AB-PB4 (ALi M1489, PCI, Award BIOS) with that
 CPU, 16 MB, a Cirrus GD5446, booting FreeDOS 1.4 from floppy, the files on an IDE disk (whose MBR
@@ -11,6 +11,10 @@ instruction is counted, by opcode, by the `insns` automation command (an 86Box b
 AUTOMATION=ON and the instruction counter). The count covers OPUSDOS's decode only: it's reset
 when OPUSDOS says it's decoding and read when it says it has decoded. OPUSDOS's own timing (by
 the machine's clock) comes with it. Results, per file, go to out.json.
+
+--profile <ms> also samples the CPU's linear EIP every <ms> of emulated time through the
+decode (into "eip", by address), for prof_map.py to put to functions; the decode's address,
+which OPUSDOS prints, goes in "anchor". The sampling doesn't change the counts or the timing.
 """
 import json
 import os
@@ -57,6 +61,11 @@ rate, seconds = 48000, 10
 watch = "--watch" in args
 if watch:
     args.remove("--watch")
+profile = 0
+if "--profile" in args:
+    i = args.index("--profile")
+    profile = int(args[i + 1])
+    del args[i:i + 2]
 extra = ""
 if "--args" in args:
     i = args.index("--args")
@@ -160,6 +169,17 @@ with tempfile.TemporaryDirectory(prefix="insncount_") as tmp:
             wait_for(f"==RUN {n}==")
             wait_for("decoding (")
             req("insns reset")
+            samples = {}
+            if profile:
+                n_s = 0
+                while True:
+                    req(f"step {profile}")
+                    g = req("regs")
+                    a = g.get("cs_base", 0) + g["eip"]
+                    samples[a] = samples.get(a, 0) + 1
+                    n_s += 1
+                    if n_s % 200 == 0 and " decoded " in screen():
+                        break
             wait_for(" decoded ")
             counts = req("insns")
             # The rest of OPUSDOS's line comes after the counts are taken: let it be printed.
@@ -169,11 +189,16 @@ with tempfile.TemporaryDirectory(prefix="insncount_") as tmp:
             scr = screen().replace("\n", "")
             m = re.search(r"decoded ([\d.]+) s of audio at (\d+) Hz in ([\d.]+) s: ([\d.]+)% of real time, CRC-32 ([0-9A-F]+)",
                           scr)
+            anchor = re.search(r"decoding \((\w+) at ([0-9A-Fa-f]+)\)", scr)
             mix = re.search(r"SILK (\d+), hybrid (\d+), CELT (\d+)", scr)
             r = {"file": os.path.basename(f), "cpu": cpu, "rate": rate, "seconds": seconds, "args": extra.strip(),
                  "instructions": counts["total"], "counts": counts["counts"]}
             if m:
                 r.update(audio_s=float(m.group(1)), decode_s=float(m.group(3)), pct=float(m.group(4)), crc=m.group(5))
+            if profile:
+                r.update(eip={f"{a:#x}": c for a, c in samples.items()}, every_ms=profile)
+                if anchor:
+                    r.update(anchor_sym=anchor.group(1), anchor=int(anchor.group(2), 16))
             if mix:
                 r.update(silk=int(mix.group(1)), hybrid=int(mix.group(2)), celt=int(mix.group(3)))
             results.append(r)

@@ -48,11 +48,19 @@ add_library(opus STATIC ${celt_src} ${silk_src} ${silk_x_src} ${opus_src} ${opus
 target_compile_definitions(opus PRIVATE HAVE_CONFIG_H)
 if(X86_FLOAT)
     target_compile_definitions(opus PUBLIC OPUS_X86_FLOAT)
+    if(X86_X87_ASM)
+        # x87 routines in NASM (celt/x86/*_x87.asm), for OpenWatcom's register convention.
+        set(CMAKE_ASM_NASM_OBJECT_FORMAT obj)
+        enable_language(ASM_NASM)
+        set(x87_asm "${OPUS_DIR}/celt/x86/float_x87.asm" "${OPUS_DIR}/celt/x86/kiss_fft_x87.asm" "${OPUS_DIR}/celt/x86/mdct_x87.asm")
+        target_sources(opus PRIVATE ${x87_asm})
+        target_compile_definitions(opus PRIVATE OPUS_X87_ASM)
+    endif()
     if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
         # float2int() takes lrint() (Watcom has no lrintf()) only in C99 mode; otherwise it's
         # floor(x + 0.5), a library call for every sample out.
         target_compile_definitions(opus PRIVATE HAVE_LRINT)
-        target_compile_options(opus PRIVATE -za99)
+        target_compile_options(opus PRIVATE $<$<COMPILE_LANGUAGE:C>:-za99>)
     endif()
 endif()
 target_include_directories(opus
@@ -61,5 +69,5 @@ target_include_directories(opus
     PUBLIC "${OPUS_DIR}/include")
 if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
     # libopus is written for compilers with fewer warnings than Watcom's; they aren't ours to fix.
-    target_compile_options(opus PRIVATE -w0)
+    target_compile_options(opus PRIVATE $<$<COMPILE_LANGUAGE:C>:-w0>)
 endif()

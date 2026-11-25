@@ -1,0 +1,4 @@
+dx4-100  GHOSTS.OPU        323.8 M instructions (  32.3 M per s of audio),  139.3% of real time
+dx4-100  BADAPPLE.OPU      270.3 M instructions (  27.0 M per s of audio),  122.3% of real time
+dx4-100  FEARHYB.OPU       384.3 M instructions (  38.4 M per s of audio),  188.7% of real time
+dx4-100  FEARSILK.OPU      183.1 M instructions (  18.3 M per s of audio),   70.2% of real time
