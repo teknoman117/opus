@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 # CMake toolchain for OPUS4DOS: OpenWatcom 2, 32-bit protected-mode DOS (flat model), linked with
 # the DOS/32A extender bound in as the stub. OpenWatcom is $WATCOM, else ~/bin/watcom.
 #

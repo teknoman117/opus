@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 # libopus, as a static library built from this clone (x86-work/..), whatever branch is checked out:
 # its sources come from libopus's own source lists (celt_sources.mk, silk_sources.mk,
 # opus_sources.mk), its configuration from x86-work/src/include/config/config.h (HAVE_CONFIG_H).

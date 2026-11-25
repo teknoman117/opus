@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: MIT */
+/* SPDX-License-Identifier: BSD-3-Clause */
 /* silk_LPC_analysis_filter()'s FIR sums for the 386, with OpenWatcom.
    Written by gen_lpc_analysis_386.py.
 

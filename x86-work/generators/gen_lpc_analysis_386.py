@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Write silk/x86/LPC_analysis_filter_386.h: silk_LPC_analysis_filter()'s
 FIR sums for orders 10 and 16 as OpenWatcom inline 386 code.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Use the 386 FIR sums (silk/x86/LPC_analysis_filter_386.h) in
 silk_LPC_analysis_filter() for orders 10 and 16 under OPUS_X86_386_ASM
 (idempotent).

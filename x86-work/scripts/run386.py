@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Run OPUSDOS on an emulated 386SX-25 (86Box, Commodore SL386SX-25) and print its log.
 
 Usage: run386.py <86Box> <OPUSDOS.EXE> <command>... [--file <path>]... [--timeout <emulated s>]

@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: MIT */
+/* SPDX-License-Identifier: BSD-3-Clause */
 /* Fixed-point multiplies for the 386, with OpenWatcom.
 
    A 386 has no fast 64-bit type, so fixed_generic.h splits these multiplies

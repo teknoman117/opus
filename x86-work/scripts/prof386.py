@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Profile OPUSDOS on the emulated 386SX-25 by sampling its EIP.
 
 Usage: prof386.py <86Box> <OPUSDOS.EXE> <map> "<command>" [--file <path>]... [--every <ms>] [--top <n>]

@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: MIT */
+/* SPDX-License-Identifier: BSD-3-Clause */
 /*
  * The CELT decoder's entry points for a SILK-only OPUSDOS: linked ahead of
  * libopus, they keep its CELT code and tables (some 70 KB) out of the

@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: MIT */
+/* SPDX-License-Identifier: BSD-3-Clause */
 /* SILK's top-word multiply for the 386, with OpenWatcom: one IMUL, whose
    high half in EDX is the result, instead of a 64-bit multiply call. */
 

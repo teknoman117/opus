@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: MIT */
+/* SPDX-License-Identifier: BSD-3-Clause */
 /*
  * OPUSDOS - decode an Ogg Opus file with libopus's fixed-point decoder, and
  * time it.

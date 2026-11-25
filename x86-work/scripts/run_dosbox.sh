@@ -1,5 +1,5 @@
 #!/bin/sh
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 # Runs OPUSDOS commands in DOSBox at full speed, for checking the DOS build's
 # output (not its speed), and prints their log.
 #

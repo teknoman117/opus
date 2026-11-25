@@ -126,9 +126,9 @@ from extended memory only).
 
 ## License
 
-What this work adds is MIT licensed (`x86-work/LICENSE`): everything in `x86-work/`, and the new
-x86 headers in libopus's tree (`celt/x86/fixed_386.h`, `silk/x86/macros_386.h`,
-`silk/x86/SigProc_FIX_386.h`, `silk/x86/LPC_analysis_filter_386.h`), each marked with an SPDX
-line. The changes to libopus's own files on these branches are under libopus's BSD license
-(`COPYING`), as those files are. An OPUSDOS.EXE built here also contains libopus, the DOS/32
-Advanced DOS Extender and OpenWatcom's C library: see OPUS4DOS's `NOTICE` for their terms.
+What this work adds is BSD 3-clause licensed, as libopus is (`x86-work/LICENSE`): everything in
+`x86-work/`, and the new x86 headers in libopus's tree (`celt/x86/fixed_386.h`,
+`silk/x86/macros_386.h`, `silk/x86/SigProc_FIX_386.h`, `silk/x86/LPC_analysis_filter_386.h`),
+each marked with an SPDX line. The changes to libopus's own files are under libopus's license
+(`COPYING`). An OPUSDOS.EXE built here also contains libopus, the DOS/32 Advanced DOS Extender
+and OpenWatcom's C library: see OPUS4DOS's `NOTICE` for their terms.

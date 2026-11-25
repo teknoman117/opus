@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 # OPUSDOS, the decoder test bench for the x86 work: libopus from this clone (the branch checked
 # out), and OPUSDOS, which decodes an Ogg Opus file and times it.
 #

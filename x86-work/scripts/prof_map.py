@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Map saved EIP samples (from prof386.py) to functions in a Watcom map.
 
 Usage: prof_map.py <samples.json> <map> [--base <hex>] [--top <n>]

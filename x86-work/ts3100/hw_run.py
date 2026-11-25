@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Send files to the real TS-3100's C:\\OPUS and run commands there.
 
 Usage: hw_run.py [--file <path>]... [--timeout <s>] <command>...

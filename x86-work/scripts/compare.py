@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """SNR of a 16-bit WAV against a reference WAV of the same rate and channels.
 
 Usage: compare.py <test.wav> <reference.wav>

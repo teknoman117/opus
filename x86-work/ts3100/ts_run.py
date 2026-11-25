@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: BSD-3-Clause
 """Run programs on the emulated TS-3100 (86Box, 512 KB, flash disk A:).
 
 Usage: ts_run.py <86Box> [--machine ts3100|ts3200] [--file <path>]... [--free <A: path>]...
