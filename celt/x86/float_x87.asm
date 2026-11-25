@@ -208,3 +208,77 @@ deemphasis16_stereo_x87_:
         jmp     .st1
 .lo1:   mov     ebp, -32768
         jmp     .st1
+
+; void deemphasis16acc_stereo_x87(const float *x0 [eax], const float *x1 [edx], short *pcm [ebx],
+;                                 int N [ecx], float *mem [esi], const float *coef0 [edi])
+;
+; deemphasis16_stereo_x87(), adding to the 16-bit samples already in pcm (SILK's, in a hybrid
+; frame) and saturating the sum, as the fixed-point decoder's ADD_RES() does.
+global deemphasis16acc_stereo_x87_
+deemphasis16acc_stereo_x87_:
+        push    ebp
+        push    esi
+        push    dword [edi]             ; [esp+8]: coef0
+        push    dword 0x4B400000        ; [esp+4]: 1.5 * 2^23
+        push    eax                     ; [esp]: where the sum is stored
+        fld     dword [esi+4]
+        fld     dword [esi]             ; m0 m1
+        test    ecx, ecx
+        jle     .done
+.loop:
+        fld     dword [eax]
+        faddp   st1, st0                ; tmp0 m1
+        fld     st0
+        fadd    dword [esp+4]
+        fstp    dword [esp]
+        fmul    dword [esp+8]           ; m0 m1
+        mov     ebp, [esp]
+        movsx   edi, word [ebx]
+        test    ebp, ebp
+        js      .lo0
+        sub     ebp, 0x4B400000
+        add     ebp, edi
+        cmp     ebp, 32767
+        jg      .hi0
+        cmp     ebp, -32768
+        jl      .lo0
+.st0:   mov     [ebx], bp
+        fxch    st1
+        fld     dword [edx]
+        faddp   st1, st0                ; tmp1 m0
+        fld     st0
+        fadd    dword [esp+4]
+        fstp    dword [esp]
+        fmul    dword [esp+8]           ; m1 m0
+        fxch    st1
+        mov     ebp, [esp]
+        movsx   edi, word [ebx+2]
+        test    ebp, ebp
+        js      .lo1
+        sub     ebp, 0x4B400000
+        add     ebp, edi
+        cmp     ebp, 32767
+        jg      .hi1
+        cmp     ebp, -32768
+        jl      .lo1
+.st1:   mov     [ebx+2], bp
+        add     eax, 4
+        add     edx, 4
+        add     ebx, 4
+        dec     ecx
+        jnz     .loop
+.done:
+        add     esp, 12
+        pop     esi
+        fstp    dword [esi]
+        fstp    dword [esi+4]
+        pop     ebp
+        ret
+.hi0:   mov     ebp, 32767
+        jmp     .st0
+.lo0:   mov     ebp, -32768
+        jmp     .st0
+.hi1:   mov     ebp, 32767
+        jmp     .st1
+.lo1:   mov     ebp, -32768
+        jmp     .st1

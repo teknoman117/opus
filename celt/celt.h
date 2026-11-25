@@ -120,7 +120,7 @@ typedef struct {
 #define CELT_SET_END_BAND(x) CELT_SET_END_BAND_REQUEST, opus_check_int(x)
 
 /* OPUS_INT16_DIRECT: where the next decodes write 16-bit samples rather than to their pcm
-   argument (NULL: to pcm). Stereo, at 48 kHz, not accumulating, only. */
+   argument (NULL: to pcm), or (accumulating) add to them. At the full rate only. */
 #define CELT_SET_PCM16_REQUEST    10090
 #define CELT_SET_PCM16(x) CELT_SET_PCM16_REQUEST, (opus_int16 *)(x)
 

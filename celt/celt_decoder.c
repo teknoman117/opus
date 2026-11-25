@@ -316,15 +316,20 @@ static void deemphasis_stereo_simple(celt_sig *in[], opus_res *pcm, int N, const
 #endif
 
 #ifdef OPUS_INT16_DIRECT
-/* deemphasis() to 16-bit samples, saturated (OPUS_INT16_DIRECT): output at the full rate, not
-   accumulating. */
-static void deemphasis16(celt_sig *in[], opus_int16 *pcm, int N, int C, const opus_val16 *coef, celt_sig *mem)
+/* deemphasis() to 16-bit samples, saturated (OPUS_INT16_DIRECT), at the full rate; with accum,
+   added to the samples there (SILK's, in a hybrid frame) and the sum saturated, as the
+   fixed-point decoder's ADD_RES() does. */
+static void deemphasis16(celt_sig *in[], opus_int16 *pcm, int N, int C, const opus_val16 *coef, celt_sig *mem,
+      int accum)
 {
    int c, j;
 #ifdef OPUS_X87_DEEMPHASIS16
    if (C == 2)
    {
-      deemphasis16_stereo_x87(in[0], in[1], pcm, N, mem, coef);
+      if (accum)
+         deemphasis16acc_stereo_x87(in[0], in[1], pcm, N, mem, coef);
+      else
+         deemphasis16_stereo_x87(in[0], in[1], pcm, N, mem, coef);
       return;
    }
 #endif
@@ -334,8 +339,14 @@ static void deemphasis16(celt_sig *in[], opus_int16 *pcm, int N, int C, const op
       for (j=0;j<N;j++)
       {
          celt_sig tmp = in[c][j] + VERY_SMALL + m;
+         opus_int32 v = FLOAT2INT16(SIG2RES(tmp));
          m = MULT16_32_Q15(coef[0], tmp);
-         pcm[j*C+c] = FLOAT2INT16(SIG2RES(tmp));
+         if (accum)
+         {
+            v += pcm[j*C+c];
+            v = v > 32767 ? 32767 : (v < -32768 ? -32768 : v);
+         }
+         pcm[j*C+c] = (opus_int16)v;
       }
       mem[c] = m;
    }
@@ -1317,7 +1328,7 @@ int celt_decode_with_ec_dred(CELTDecoder * OPUS_RESTRICT st, const unsigned char
                       );
 #ifdef OPUS_INT16_DIRECT
       if (st->pcm16)
-         deemphasis16(out_syn, st->pcm16, N, CC, mode->preemph, st->preemph_memD);
+         deemphasis16(out_syn, st->pcm16, N, CC, mode->preemph, st->preemph_memD, accum);
       else
 #endif
       deemphasis(out_syn, pcm, N, CC, st->downsample, mode->preemph, st->preemph_memD, accum);
@@ -1636,7 +1647,7 @@ int celt_decode_with_ec_dred(CELTDecoder * OPUS_RESTRICT st, const unsigned char
 
 #ifdef OPUS_INT16_DIRECT
    if (st->pcm16)
-      deemphasis16(out_syn, st->pcm16, N, CC, mode->preemph, st->preemph_memD);
+      deemphasis16(out_syn, st->pcm16, N, CC, mode->preemph, st->preemph_memD, accum);
    else
 #endif
    deemphasis(out_syn, pcm, N, CC, st->downsample, mode->preemph, st->preemph_memD, accum);

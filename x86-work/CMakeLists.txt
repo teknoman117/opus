@@ -36,7 +36,11 @@ if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
     else()
         set(X86_FP -fpc)
     endif()
-    add_compile_options("$<$<COMPILE_LANGUAGE:C>:-mf;-3r;${X86_FP};-s;-otexan;-zp4>")
+    # -3r: OpenWatcom's 386 register calling convention, with 386 scheduling; -4r and -5r keep
+    # the convention and schedule for a 486 or a Pentium.
+    set(X86_CPU_FLAG "-3r" CACHE STRING "OpenWatcom's CPU option: -3r, -4r or -5r (all register calling)")
+    set(X86_EXTRA_OPT "" CACHE STRING "More OpenWatcom optimization options, as a list (-oh;-ol+)")
+    add_compile_options("$<$<COMPILE_LANGUAGE:C>:-mf;${X86_CPU_FLAG};${X86_FP};-s;-otexan;${X86_EXTRA_OPT};-zp4>")
     # Watcom ends an option's file name at a '-', and libopus's objects are named after their
     # full paths (they're outside this directory), which have one (opus-x86): quote them.
     set(CMAKE_C_COMPILE_OBJECT

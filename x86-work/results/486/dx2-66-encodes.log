@@ -1,0 +1,5 @@
+dx2-66   G96.OPU           258.0 M instructions (  25.8 M per s of audio),  175.5% of real time
+dx2-66   G64.OPU           237.3 M instructions (  23.7 M per s of audio),  166.7% of real time
+dx2-66   G48.OPU           235.2 M instructions (  23.5 M per s of audio),  169.5% of real time
+dx2-66   G96S.OPU          234.8 M instructions (  23.5 M per s of audio),  159.1% of real time
+dx2-66   G64S.OPU          213.3 M instructions (  21.3 M per s of audio),  149.7% of real time
