@@ -1,0 +1,6 @@
+5x86-133 GHOSTS.OPU        282.1 M instructions (  28.2 M per s of audio),   92.7% of real time
+5x86-133 BADAPPLE.OPU      224.5 M instructions (  22.4 M per s of audio),   79.5% of real time
+5x86-133 FEARHYB.OPU       305.6 M instructions (  30.5 M per s of audio),  115.7% of real time
+5x86-133 FEARSILK.OPU      127.8 M instructions (  12.8 M per s of audio),   38.4% of real time
+5x86-133 G64.OPU           237.4 M instructions (  23.7 M per s of audio),   83.4% of real time
+5x86-133 G64S.OPU          213.3 M instructions (  21.3 M per s of audio),   74.6% of real time
