@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 """Count the instructions OPUSDOS executes decoding each file, and time it, on an emulated 486.
 
-Usage: insncount.py <86Box> <OPUSDOS.EXE> <cpu> <out.json> <file.opu>... [--rate 48000] [--seconds 10] [--watch]
+Usage: insncount.py <86Box> <OPUSDOS.EXE> <cpu> <out.json> <file.opu>... [--rate 48000] [--seconds 10] [--args "<OPUSDOS options>"] [--watch]
 
 <cpu> is dx33, dx2-66 or dx4-100. The machine is an ABIT AB-PB4 (ALi M1489, PCI, Award BIOS) with that
 CPU, 16 MB, a Cirrus GD5446, booting FreeDOS 1.4 from floppy, the files on an IDE disk (whose MBR
@@ -57,6 +57,11 @@ rate, seconds = 48000, 10
 watch = "--watch" in args
 if watch:
     args.remove("--watch")
+extra = ""
+if "--args" in args:
+    i = args.index("--args")
+    extra = " " + args[i + 1]
+    del args[i:i + 2]
 for opt in ("--rate", "--seconds"):
     if opt in args:
         i = args.index(opt)
@@ -84,7 +89,7 @@ with tempfile.TemporaryDirectory(prefix="insncount_") as tmp:
                                        "SHELL=\\FREEDOS\\BIN\\COMMAND.COM \\FREEDOS\\BIN /E:2048 /P=\\FDAUTO.BAT\r\n")
     lines = ["@ECHO OFF", "SET PATH=\\FREEDOS\\BIN", "C:"]
     for n, f in enumerate(files):
-        lines += ["CLS", f"ECHO ==RUN {n}==", f"OPUSDOS {os.path.basename(f).upper()} {rate} -s {seconds}"]
+        lines += ["CLS", f"ECHO ==RUN {n}==", f"OPUSDOS {os.path.basename(f).upper()} {rate} -s {seconds}{extra}"]
     lines += ["CLS", "ECHO ==ALL DONE=="]
     (root / "FDAUTO.BAT").write_text("\r\n".join(lines) + "\r\n")
     for name in ("FDCONFIG.SYS", "FDAUTO.BAT"):
@@ -158,13 +163,14 @@ with tempfile.TemporaryDirectory(prefix="insncount_") as tmp:
             wait_for(" decoded ")
             counts = req("insns")
             # The rest of OPUSDOS's line comes after the counts are taken: let it be printed.
-            req("step 500")
+            wait_for("CRC-32", 600)
+            req("step 50")
             # OPUSDOS's lines are longer than the screen is wide: match across the wraps.
             scr = screen().replace("\n", "")
             m = re.search(r"decoded ([\d.]+) s of audio at (\d+) Hz in ([\d.]+) s: ([\d.]+)% of real time, CRC-32 ([0-9A-F]+)",
                           scr)
             mix = re.search(r"SILK (\d+), hybrid (\d+), CELT (\d+)", scr)
-            r = {"file": os.path.basename(f), "cpu": cpu, "rate": rate, "seconds": seconds,
+            r = {"file": os.path.basename(f), "cpu": cpu, "rate": rate, "seconds": seconds, "args": extra.strip(),
                  "instructions": counts["total"], "counts": counts["counts"]}
             if m:
                 r.update(audio_s=float(m.group(1)), decode_s=float(m.group(3)), pct=float(m.group(4)), crc=m.group(5))

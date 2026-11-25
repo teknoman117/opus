@@ -9,12 +9,14 @@
 #   cmake -S x86-work -B build/host -G Ninja && cmake --build build/host   -> build/host/opusdos
 #
 # For A/B builds: -DX86_DEFINES="OPUS_NO_386_FIR;OPUS_386_ENTDEC" (see src/include/config/config.h), and
-# -DX86_SILK_ONLY=ON to leave CELT out (src/celt_stub.c), as a 512 KB board needs.
+# -DX86_SILK_ONLY=ON to leave CELT out (src/celt_stub.c), as a 512 KB board needs, and
+# -DX86_FLOAT=ON for libopus's floating-point decoder on an x87.
 cmake_minimum_required(VERSION 3.21)
 project(opus-x86 C)
 
 set(X86_DEFINES "" CACHE STRING "Macros for src/include/config/config.h's switches, for A/B builds")
 option(X86_SILK_ONLY "Leave CELT out: SILK packets only" OFF)
+option(X86_FLOAT "libopus's floating-point build, with x87 instructions (a 486DX or later)" OFF)
 add_compile_definitions(${X86_DEFINES})
 
 if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
@@ -26,7 +28,14 @@ if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
         set(CMAKE_EXE_LINKER_FLAGS_${type} "")
     endforeach()
     set(CMAKE_EXE_LINKER_FLAGS "system dos32a")
-    add_compile_options(-mf -3r -fpc -s -otexan -zp4)
+    # -fpc: floating point by library calls, so no FPU is needed; a float build has x87
+    # instructions inline (-fpi87), 387 ones (-fp3).
+    if(X86_FLOAT)
+        set(X86_FP -fpi87 -fp3)
+    else()
+        set(X86_FP -fpc)
+    endif()
+    add_compile_options(-mf -3r ${X86_FP} -s -otexan -zp4)
     # Watcom ends an option's file name at a '-', and libopus's objects are named after their
     # full paths (they're outside this directory), which have one (opus-x86): quote them.
     set(CMAKE_C_COMPILE_OBJECT
@@ -54,3 +63,14 @@ if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
 else()
     target_link_libraries(opusdos PRIVATE m)
 endif()
+
+# RSBENCH: OPUS4DOS's resampler (src/resample.c of an OPUS4DOS checkout), on its own.
+set(OPUS4DOS_DIR "$ENV{HOME}/Projects/opus4dos" CACHE PATH "An OPUS4DOS checkout, for RSBENCH")
+if(EXISTS "${OPUS4DOS_DIR}/src/resample.c")
+    add_executable(rsbench src/rsbench.c "${OPUS4DOS_DIR}/src/resample.c")
+    target_include_directories(rsbench PRIVATE "${OPUS4DOS_DIR}/src")
+    if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
+        set_target_properties(rsbench PROPERTIES OUTPUT_NAME RSBENCH SUFFIX .EXE LINK_FLAGS "option stack=16k")
+    endif()
+endif()
+

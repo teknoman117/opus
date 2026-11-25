@@ -31,14 +31,33 @@ endfunction()
 
 opus_mk_sources(celt_src celt_sources.mk CELT_SOURCES)
 opus_mk_sources(silk_src silk_sources.mk SILK_SOURCES)
-opus_mk_sources(silk_fixed_src silk_sources.mk SILK_SOURCES_FIXED)
 opus_mk_sources(opus_src opus_sources.mk OPUS_SOURCES)
+if(X86_FLOAT)
+    # The float build: SILK's float sources (its encoder's; the decoder is fixed point either
+    # way) and the Opus layer's float ones.
+    opus_mk_sources(silk_x_src silk_sources.mk SILK_SOURCES_FLOAT)
+    opus_mk_sources(opus_x_src opus_sources.mk OPUS_SOURCES_FLOAT)
+    set(silk_x_dir "${OPUS_DIR}/silk/float")
+else()
+    opus_mk_sources(silk_x_src silk_sources.mk SILK_SOURCES_FIXED)
+    set(opus_x_src "")
+    set(silk_x_dir "${OPUS_DIR}/silk/fixed")
+endif()
 
-add_library(opus STATIC ${celt_src} ${silk_src} ${silk_fixed_src} ${opus_src})
+add_library(opus STATIC ${celt_src} ${silk_src} ${silk_x_src} ${opus_src} ${opus_x_src})
 target_compile_definitions(opus PRIVATE HAVE_CONFIG_H)
+if(X86_FLOAT)
+    target_compile_definitions(opus PUBLIC OPUS_X86_FLOAT)
+    if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
+        # float2int() takes lrint() (Watcom has no lrintf()) only in C99 mode; otherwise it's
+        # floor(x + 0.5), a library call for every sample out.
+        target_compile_definitions(opus PRIVATE HAVE_LRINT)
+        target_compile_options(opus PRIVATE -za99)
+    endif()
+endif()
 target_include_directories(opus
     PRIVATE "${PROJECT_SOURCE_DIR}/src/include/config" "${OPUS_DIR}" "${OPUS_DIR}/celt" "${OPUS_DIR}/silk"
-            "${OPUS_DIR}/silk/fixed"
+            "${silk_x_dir}"
     PUBLIC "${OPUS_DIR}/include")
 if(CMAKE_C_COMPILER_ID STREQUAL "OpenWatcom")
     # libopus is written for compilers with fewer warnings than Watcom's; they aren't ours to fix.

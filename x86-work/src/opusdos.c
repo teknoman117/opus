@@ -3,7 +3,7 @@
  * OPUSDOS - decode an Ogg Opus file with libopus's fixed-point decoder, and
  * time it.
  *
- * Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p]
+ * Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p] [-f]
  *   rate     the output rate: 8000, 12000, 16000, 24000 or 48000 (default 48000)
  *   -o       also write the decoded audio to a WAV file (after the timing)
  *   -s       decode only the first so many seconds
@@ -24,6 +24,51 @@
 #include "config.h" /* GLOBAL_STACK_SIZE */
 
 #define MAX_FRAME 5760 /* 120 ms at 48 kHz */
+
+/*
+   -f, in a float build: decode with opus_decode_float() and convert to 16 bits here, rather than
+   let opus_decode() do it, which with OpenWatcom costs a call to its library lrint() for every
+   sample (float2int(), in C99 mode). On an x87 the conversion is one FISTP in the default
+   (round to nearest) mode. opus_decode() soft-clips first; this clamps.
+ */
+static int float_out;
+#ifdef OPUS_X86_FLOAT
+static float fbuf[MAX_FRAME * 2];
+#if defined(__WATCOMC__)
+long x87_round(float x);
+#pragma aux x87_round = \
+    "sub esp, 4" \
+    "fistp dword ptr [esp]" \
+    "pop eax" \
+    parm [8087] value [eax] modify exact [eax 8087];
+#else
+#include <math.h>
+#define x87_round(x) lrintf(x)
+#endif
+#endif
+
+/* One packet, as opus_decode(), or with -f as above. */
+static int
+decode_packet(OpusDecoder *dec, const unsigned char *data, opus_int32 len, opus_int16 *out, int max_frame,
+              int channels)
+{
+#ifdef OPUS_X86_FLOAT
+    if (float_out) {
+        int n = opus_decode_float(dec, data, len, fbuf, max_frame, 0), i;
+        for (i = 0; i < n * channels; i++) {
+            float v = fbuf[i] * 32768.f;
+            if (v > 32767.f)
+                v = 32767.f;
+            else if (v < -32768.f)
+                v = -32768.f;
+            out[i] = (opus_int16) x87_round(v);
+        }
+        return n;
+    }
+#endif
+    (void) channels;
+    return opus_decode(dec, data, len, out, max_frame, 0);
+}
 
 /*
    libopus's scratch memory (NONTHREADSAFE_PSEUDOSTACK): it allocates
@@ -294,7 +339,8 @@ decode_all(OpusDecoder *dec, unsigned long first, unsigned long end, int channel
             fprintf(stderr, "output buffer too small\n");
             return -1;
         }
-        n = opus_decode(dec, pkt_data + pkts[i].off, (opus_int32) pkts[i].len, out + pos * channels, MAX_FRAME, 0);
+        n = decode_packet(dec, pkt_data + pkts[i].off, (opus_int32) pkts[i].len, out + pos * channels, MAX_FRAME,
+                          channels);
         if (n < 0) {
             fprintf(stderr, "packet %lu: %s\n", i, opus_strerror(n));
             return -1;
@@ -437,7 +483,7 @@ decode_stream(const char *in_name, long rate, double limit_s)
 
         modes[(cfg < 12) ? 0 : (cfg < 16) ? 1 : 2]++;
         t0 = pit_now();
-        n  = opus_decode(dec, s.pkt, (opus_int32) s.pkt_len, frame, max_frame, 0);
+        n  = decode_packet(dec, s.pkt, (opus_int32) s.pkt_len, frame, max_frame, channels);
         t  = pit_now() - t0;
         if (n < 0) {
             pit_mode3();
@@ -507,6 +553,14 @@ main(int argc, char **argv)
     for (i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-p"))
             per_packet = 1;
+        else if (!strcmp(argv[i], "-f")) {
+#ifdef OPUS_X86_FLOAT
+            float_out = 1;
+#else
+            fprintf(stderr, "-f needs a float build (X86_FLOAT)\n");
+            return 1;
+#endif
+        }
         else if (!strcmp(argv[i], "-o") && (i + 1 < argc))
             out_name = argv[++i];
         else if (!strcmp(argv[i], "-s") && (i + 1 < argc))
@@ -517,7 +571,7 @@ main(int argc, char **argv)
             rate = atol(argv[i]);
     }
     if (in_name == NULL) {
-        fprintf(stderr, "Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p]\n");
+        fprintf(stderr, "Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p] [-f]\n");
         return 1;
     }
 
