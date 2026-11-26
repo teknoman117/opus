@@ -36,9 +36,11 @@ in DOSBox (correctness, not speed), `run386.py` on an emulated 386SX-25 (86Box, 
 functions, `compare.py` gives one WAV's SNR against another. Test streams go in
 `x86-work/media`, which isn't in git (they're made from commercial recordings).
 
-OPUS4DOS (`~/Projects/opus4dos`) can take a branch too: check it out in its `external/opus`
-(`git remote add x86 ~/Projects/opus-x86 && git fetch x86 && git checkout x86/dos386`) and define
-`OPUS_X86_386_ASM` in its config.h.
+OPUS4DOS (`~/Projects/opus4dos`) can take a branch too. Its `external/opus` comes from the same
+fork (github.com/teknoman117/opus), where this is `386-dos` (and the 486 work `486-dos`): check
+one out there (`git fetch origin 386-dos && git checkout FETCH_HEAD`) and define
+`OPUS_X86_386_ASM` in its config.h. Locally the branches are `~/Projects/opus-x86-386` and its
+worktree `~/Projects/opus-x86-486`.
 
 ## dos386: what's there
 
