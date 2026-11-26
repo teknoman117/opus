@@ -3,7 +3,7 @@
  * OPUSDOS - decode an Ogg Opus file with libopus's fixed-point decoder, and
  * time it.
  *
- * Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p] [-f]
+ * Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p] [-f] [-m]
  *   rate     the output rate: 8000, 12000, 16000, 24000 or 48000 (default 48000)
  *   -o       also write the decoded audio to a WAV file (after the timing)
  *   -s       decode only the first so many seconds
@@ -32,6 +32,9 @@
    (round to nearest) mode. opus_decode() soft-clips first; this clamps.
  */
 static int float_out;
+
+/* -m: decode to one channel, whatever the stream has (libopus mixes a stereo stream down). */
+static int force_mono;
 #ifdef OPUS_X86_FLOAT
 static float fbuf[MAX_FRAME * 2];
 #if defined(__WATCOMC__)
@@ -456,7 +459,7 @@ decode_stream(const char *in_name, long rate, double limit_s)
         fprintf(stderr, "%s isn't an Ogg Opus file\n", in_name);
         return 1;
     }
-    channels = s.pkt[9];
+    channels = force_mono ? 1 : s.pkt[9];
     skip     = (long) (s.pkt[10] | (s.pkt[11] << 8)) * rate / 48000;
     stream_packet(&s); /* OpusTags */
 
@@ -553,6 +556,8 @@ main(int argc, char **argv)
     for (i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-p"))
             per_packet = 1;
+        else if (!strcmp(argv[i], "-m"))
+            force_mono = 1;
         else if (!strcmp(argv[i], "-f")) {
 #ifdef OPUS_X86_FLOAT
             float_out = 1;
@@ -571,7 +576,7 @@ main(int argc, char **argv)
             rate = atol(argv[i]);
     }
     if (in_name == NULL) {
-        fprintf(stderr, "Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p] [-f]\n");
+        fprintf(stderr, "Usage: OPUSDOS file.opus [rate] [-o out.wav] [-s seconds] [-p] [-f] [-m]\n");
         return 1;
     }
 
@@ -605,7 +610,7 @@ main(int argc, char **argv)
         fprintf(stderr, "%s isn't an Ogg Opus file\n", in_name);
         return 1;
     }
-    channels = pkt_data[pkts[0].off + 9];
+    channels = force_mono ? 1 : pkt_data[pkts[0].off + 9];
     preskip  = pkt_data[pkts[0].off + 10] | (pkt_data[pkts[0].off + 11] << 8);
     first    = 2; /* after OpusHead and OpusTags */
     end      = npkts;

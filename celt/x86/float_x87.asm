@@ -282,3 +282,83 @@ deemphasis16acc_stereo_x87_:
         jmp     .st1
 .lo1:   mov     ebp, -32768
         jmp     .st1
+
+; void deemphasis16_mono_x87(const float *x [eax], short *pcm [edx], int N [ebx],
+;                            float *mem [ecx], const float *coef0 [esi])
+;
+; deemphasis16_stereo_x87() for one channel.
+global deemphasis16_mono_x87_
+deemphasis16_mono_x87_:
+        push    ebp
+        push    dword [esi]             ; [esp+8]: coef0
+        push    dword 0x4B400000        ; [esp+4]: 1.5 * 2^23
+        push    eax                     ; [esp]: where the sum is stored
+        fld     dword [ecx]             ; m
+        test    ebx, ebx
+        jle     .done
+.loop:
+        fld     dword [eax]
+        faddp   st1, st0                ; tmp
+        fld     st0
+        fadd    dword [esp+4]
+        fstp    dword [esp]
+        fmul    dword [esp+8]           ; m
+        mov     ebp, [esp]
+        test    ebp, ebp
+        js      .lo
+        sub     ebp, 0x4B400000
+        cmp     ebp, 32767
+        jg      .hi
+        cmp     ebp, -32768
+        jl      .lo
+.st:    mov     [edx], bp
+        add     eax, 4
+        add     edx, 2
+        dec     ebx
+        jnz     .loop
+.done:
+        fstp    dword [ecx]
+        add     esp, 12
+        pop     ebp
+        ret
+.hi:    mov     ebp, 32767
+        jmp     .st
+.lo:    mov     ebp, -32768
+        jmp     .st
+
+; void comb_filter_const_x87(float *y [eax], const float *x [edx], int T [ebx], int N [ecx],
+;                            const float *g [esi])
+;
+; comb_filter_const_c() of celt.c, float build: y[i] = x[i] + g[0] x[i-T]
+; + g[1] (x[i-T+1] + x[i-T-1]) + g[2] (x[i-T+2] + x[i-T-2]), every tap from memory (FADD and
+; FMUL m32 cost no more than from the stack, and nothing needs shuffling). In place (y == x),
+; as the decoder runs it, the taps are already outputs, as the C reads them: T is at least 15.
+global comb_filter_const_x87_
+comb_filter_const_x87_:
+        push    ebp
+        test    ecx, ecx
+        jle     .done
+        shl     ebx, 2
+        mov     ebp, edx
+        sub     ebp, ebx                ; ebp: x + i - T
+.loop:
+        fld     dword [ebp+4]
+        fadd    dword [ebp-4]
+        fmul    dword [esi+4]
+        fld     dword [ebp+8]
+        fadd    dword [ebp-8]
+        fmul    dword [esi+8]
+        faddp   st1, st0
+        fld     dword [ebp]
+        fmul    dword [esi]
+        faddp   st1, st0
+        fadd    dword [edx]
+        fstp    dword [eax]
+        add     eax, 4
+        add     edx, 4
+        add     ebp, 4
+        dec     ecx
+        jnz     .loop
+.done:
+        pop     ebp
+        ret

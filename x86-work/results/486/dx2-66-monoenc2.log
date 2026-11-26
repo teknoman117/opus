@@ -1,0 +1,4 @@
+dx2-66   GM128.OPU         162.0 M instructions (  16.2 M per s of audio),   98.2% of real time
+dx2-66   GM64.OPU          139.9 M instructions (  14.0 M per s of audio),   93.8% of real time
+dx2-66   GHOSTS.OPU        266.3 M instructions (  26.6 M per s of audio),  182.1% of real time
+dx2-66   BADAPPLE.OPU      215.8 M instructions (  21.6 M per s of audio),  156.3% of real time

@@ -38,6 +38,27 @@
   If you are optimizing Opus on a new platform and it has a native CLZ or
    BZR (e.g. cell, MIPS, x86, etc) then making it available to Opus will be
    an easy performance win.*/
+#if defined(OPUS_X86_ILOG_LUT)
+/*On a 386 or 486, shifts by CL and SETcc cost 3 clocks or more each and BSR 3 a
+   bit scanned, so a table of the logs of 0..255 and up to three compares wins.*/
+static const unsigned char EC_ILOG_TAB[256]={
+  0,1,2,2,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+  6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+  7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+  7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+  8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+  8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+  8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+  8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
+};
+int ec_ilog(opus_uint32 _v){
+  /*The range coder's values, the commonest, are the biggest: try them first.*/
+  if(_v>=0x1000000)return 24+EC_ILOG_TAB[_v>>24];
+  if(_v>=0x10000)return 16+EC_ILOG_TAB[_v>>16];
+  if(_v>=0x100)return 8+EC_ILOG_TAB[_v>>8];
+  return EC_ILOG_TAB[_v];
+}
+#else
 int ec_ilog(opus_uint32 _v){
   /*On a Pentium M, this branchless version tested as the fastest on
      1,000,000,000 random 32-bit integers, edging out a similar version with
@@ -60,6 +81,7 @@ int ec_ilog(opus_uint32 _v){
   ret+=!!(_v&0x2);
   return ret;
 }
+#endif
 #endif
 
 #if 1

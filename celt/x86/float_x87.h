@@ -38,7 +38,24 @@ void deemphasis16_stereo_x87(const float *x0, const float *x1, short *pcm, int N
 #pragma aux deemphasis16_stereo_x87 "*_" parm [eax] [edx] [ebx] [ecx] [esi] [edi] modify exact [eax ebx ecx edx 8087];
 void deemphasis16acc_stereo_x87(const float *x0, const float *x1, short *pcm, int N, float *mem, const float *coef0);
 #pragma aux deemphasis16acc_stereo_x87 "*_" parm [eax] [edx] [ebx] [ecx] [esi] [edi] modify exact [eax ebx ecx edx edi 8087];
+void deemphasis16_mono_x87(const float *x, short *pcm, int N, float *mem, const float *coef0);
+#pragma aux deemphasis16_mono_x87 "*_" parm [eax] [edx] [ebx] [ecx] [esi] modify exact [eax ebx edx 8087];
 #define OPUS_X87_DEEMPHASIS16
+
+/* comb_filter_const_c() of celt.c (float_x87.asm): the post-filter's constant part. */
+void comb_filter_const_x87(float *y, const float *x, int T, int N, const float *g);
+#pragma aux comb_filter_const_x87 "*_" parm [eax] [edx] [ebx] [ecx] [esi] modify exact [eax ebx ecx edx 8087];
+static __inline void comb_filter_const_x87w(float *y, float *x, int T, int N, float g10, float g11, float g12)
+{
+    float g[3];
+    g[0] = g10;
+    g[1] = g11;
+    g[2] = g12;
+    comb_filter_const_x87(y, x, T, N, g);
+}
+#define OVERRIDE_COMB_FILTER_CONST
+#define comb_filter_const(y, x, T, N, g10, g11, g12, arch) \
+    ((void) (arch), comb_filter_const_x87w(y, x, T, N, g10, g11, g12))
 
 /* clt_mdct_backward_c()'s loops (mdct_x87.asm), each given its parameters in one block. */
 struct mdct_x87_args {

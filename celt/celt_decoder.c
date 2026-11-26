@@ -332,6 +332,11 @@ static void deemphasis16(celt_sig *in[], opus_int16 *pcm, int N, int C, const op
          deemphasis16_stereo_x87(in[0], in[1], pcm, N, mem, coef);
       return;
    }
+   if (C == 1 && !accum)
+   {
+      deemphasis16_mono_x87(in[0], pcm, N, mem, coef);
+      return;
+   }
 #endif
    for (c=0;c<C;c++)
    {

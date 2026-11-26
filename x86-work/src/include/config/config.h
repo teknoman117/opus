@@ -20,6 +20,12 @@
 #define OPUS_INT16_DIRECT 1
 #endif
 
+/* ec_ilog() by a 256-entry table (entcode.c), cheaper than its branchless version on a 386 or
+   486. Integer code: it would suit the fixed-point 386 build too, but is untried there. */
+#if defined(OPUS_X86_FLOAT)
+#define OPUS_X86_ILOG_LUT 1
+#endif
+
 /* Scratch memory from one global block rather than alloca or variable-length arrays. The
    decoder uses about 8 KB of it at most (OPUSDOS reports it). */
 #define NONTHREADSAFE_PSEUDOSTACK 1

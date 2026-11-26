@@ -968,14 +968,14 @@ int opus_decode(OpusDecoder *st, const unsigned char *data,
        ALLOC(out, frame_size*st->channels, opus_res);
 
 #ifdef OPUS_INT16_DIRECT
-       /* Straight to 16 bits, if the packet continues the previous one's mode, SILK-only or
-          (stereo, at 48 kHz) CELT-only or hybrid: nothing but SILK and CELT touch its samples
-          then, short of a redundant frame (which falls back), a transition or a gain. */
+       /* Straight to 16 bits, if the packet continues the previous one's mode, SILK-only, or at
+          48 kHz CELT-only or (stereo) hybrid: nothing but SILK and CELT touch its samples then,
+          short of a redundant frame (which falls back), a transition or a gain. */
        if (data != NULL && len > 1 && !decode_fec && !st->decode_gain
            && st->prev_mode == opus_packet_get_mode(data)
            && (st->prev_mode == MODE_SILK_ONLY
-               || ((st->prev_mode == MODE_CELT_ONLY || st->prev_mode == MODE_HYBRID)
-                   && st->channels == 2 && st->Fs == 48000)))
+               || (st->prev_mode == MODE_CELT_ONLY && st->Fs == 48000)
+               || (st->prev_mode == MODE_HYBRID && st->channels == 2 && st->Fs == 48000)))
        {
           st->pcm16 = pcm;
           st->pcm16_base = out;

@@ -3,7 +3,7 @@
  * RSBENCH - times OPUS4DOS's 48 to 44.1 kHz resampler (its src/resample.c) on stereo 16-bit
  * audio, a 20 ms packet (960 frames) at a time as the player feeds it, in memory.
  *
- * Usage: RSBENCH [file] [rate] [-s seconds]   (default 10 s, to 44100 Hz)
+ * Usage: RSBENCH [file] [rate] [-s seconds] [-m]   (default 10 s, stereo, to 44100 Hz; -m mono)
  *
  * It takes OPUSDOS's command line, and ignores the file: it resamples a synthetic signal.
  *
@@ -27,6 +27,7 @@ main(int argc, char **argv)
 {
     double        secs = 10.0;
     long          rate = 44100;
+    int           ch = 2;
     long          packets, p, frames = 0;
     unsigned long crc = 0, seed = 12345;
     resampler     rs;
@@ -36,6 +37,8 @@ main(int argc, char **argv)
     for (i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-s") && (i + 1 < argc))
             secs = atof(argv[++i]);
+        else if (!strcmp(argv[i], "-m"))
+            ch = 1;
         else if (atol(argv[i]) > 0)
             rate = atol(argv[i]);
     }
@@ -45,8 +48,8 @@ main(int argc, char **argv)
         seed = seed * 1103515245ul + 12345ul;
         in[i] = (short) (((i * 37) % 8192) - 4096 + ((seed >> 16) & 1023));
     }
-    resample_init(&rs, 48000, rate, 2);
-    printf("RSBENCH: 48000 Hz stereo to %ld Hz, %ld packets of %d frames\n", rate, packets, PACKET);
+    resample_init(&rs, 48000, rate, ch);
+    printf("RSBENCH: 48000 Hz, %d channel(s), to %ld Hz, %ld packets of %d frames\n", ch, rate, packets, PACKET);
     printf("  decoding (resample at %p)\n", (void *) resample);
     fflush(stdout);
     t0 = clock();

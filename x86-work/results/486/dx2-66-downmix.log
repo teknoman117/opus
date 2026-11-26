@@ -1,0 +1,4 @@
+dx2-66   GHOSTS.OPU        230.7 M instructions (  23.0 M per s of audio),  141.5% of real time
+dx2-66   G64.OPU           185.6 M instructions (  18.5 M per s of audio),  122.3% of real time
+dx2-66   BADAPPLE.OPU      175.9 M instructions (  17.6 M per s of audio),  117.4% of real time
+dx2-66   G64S.OPU          161.9 M instructions (  16.2 M per s of audio),  105.3% of real time
